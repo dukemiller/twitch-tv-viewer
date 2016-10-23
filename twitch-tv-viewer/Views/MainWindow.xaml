@@ -3,25 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
-        Title="TwitchTV Viewer" Height="200" Width="800">
+        Title="TwitchTV Viewer"
+        Width="800"
+        Height="200"
+        mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="6*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="6*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        
-        <DataGrid Grid.Row="0">
-            
-        </DataGrid>
-        
+
+        <DataGrid Grid.Row="0" />
+
         <DockPanel Grid.Row="1">
-            <Label Content="Notification text"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Add"/>
-                <Button Content="Edit"/>
+            <Label Content="Notification text" />
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Click="Add_Click" Content="Add" />
+                <Button Click="Edit_Click" Content="Edit" />
             </StackPanel>
         </DockPanel>
-        
+
     </Grid>
 </Window>
