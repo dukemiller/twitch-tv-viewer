@@ -7,21 +7,17 @@
         Width="800"
         Height="200"
         mc:Ignorable="d">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="6*" />
-            <RowDefinition Height="1*" />
-        </Grid.RowDefinitions>
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
+            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                <Label Content="Notification text" />
+            </StackPanel>
 
-        <DataGrid Grid.Row="0" />
-
-        <DockPanel Grid.Row="1">
-            <Label Content="Notification text" />
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                 <Button Click="Add_Click" Content="Add" />
                 <Button Click="Edit_Click" Content="Edit" />
             </StackPanel>
         </DockPanel>
-
-    </Grid>
+        <DataGrid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+    </DockPanel>
 </Window>
