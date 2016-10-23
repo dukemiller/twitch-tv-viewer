@@ -100,11 +100,12 @@
                     <Setter Property="Margin" Value="10" />
                 </Style>
                 <Style TargetType="StackPanel">
+                    <Setter Property="Margin" Value="10" />
                     <Setter Property="Orientation" Value="Horizontal" />
                     <Setter Property="HorizontalAlignment" Value="Right" />
                     <Style.Resources>
                         <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
-                            <Setter Property="Margin" Value="0, 10" />
+                            <Setter Property="Margin" Value="0" />
                             <Setter Property="HorizontalAlignment" Value="Right" />
                         </Style>
                     </Style.Resources>
