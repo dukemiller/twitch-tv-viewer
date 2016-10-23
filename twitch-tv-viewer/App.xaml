@@ -55,6 +55,8 @@
 
         <!--  Datagrid Styles  -->
 
+        <Style BasedOn="{StaticResource {x:Type Control}}" TargetType="ContextMenu" />
+
         <Style TargetType="DataGrid">
             <Setter Property="AutoGenerateColumns" Value="False" />
             <Setter Property="Background" Value="{StaticResource Background}" />
@@ -70,6 +72,36 @@
             <Setter Property="UseLayoutRounding" Value="False" />
             <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
             <Setter Property="Margin" Value="5" />
+        </Style>
+
+        <Style x:Key="ColumnElementStyle" TargetType="TextBlock">
+            <Setter Property="TextTrimming" Value="WordEllipsis" />
+            <Setter Property="Margin" Value="0,0,15,0" />
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="Background" Value="{StaticResource Background}" />
+            <Setter Property="Foreground" Value="{StaticResource Text}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontFamily" Value="{StaticResource Font}" />
+            <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+            <Setter Property="ToolTip" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}}" />
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#080E0E" />
+                </Trigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
+                        <Condition Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}, Mode=OneWay}" Value="Name" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="#101C1C" />
+                </MultiDataTrigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#142323" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <!--  Container styles  -->
