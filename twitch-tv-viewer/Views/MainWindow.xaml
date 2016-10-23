@@ -1,12 +1,27 @@
-﻿<Window x:Class="twitch_tv_viewer.MainWindow"
+﻿<Window x:Class="twitch_tv_viewer.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:twitch_tv_viewer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="TwitchTV Viewer" Height="200" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        
+        <DataGrid Grid.Row="0">
+            
+        </DataGrid>
+        
+        <DockPanel Grid.Row="1">
+            <Label Content="Notification text"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Add"/>
+                <Button Content="Edit"/>
+            </StackPanel>
+        </DockPanel>
         
     </Grid>
 </Window>
