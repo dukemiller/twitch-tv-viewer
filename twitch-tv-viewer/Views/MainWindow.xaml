@@ -12,12 +12,11 @@
             <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
                 <Label Content="Notification text" />
             </StackPanel>
-
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                 <Button Click="Add_Click" Content="Add" />
                 <Button Click="Edit_Click" Content="Edit" />
             </StackPanel>
         </DockPanel>
-        <DataGrid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <DataGrid />
     </DockPanel>
 </Window>
