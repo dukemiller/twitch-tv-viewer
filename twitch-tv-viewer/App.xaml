@@ -46,7 +46,14 @@
                         <Border Background="{TemplateBinding Background}" BorderThickness="0">
                             <ContentPresenter Margin="3"
                                               HorizontalAlignment="Center"
-                                              VerticalAlignment="Center" />
+                                              VerticalAlignment="Center">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextDecorations" Value="Underline" />
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
+
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
