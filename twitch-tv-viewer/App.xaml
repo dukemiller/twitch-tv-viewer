@@ -1,9 +1,129 @@
 ﻿<Application x:Class="twitch_tv_viewer.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:twitch_tv_viewer"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-         
+
+        <!--  Constants  -->
+
+        <SolidColorBrush x:Key="Text">GreenYellow</SolidColorBrush>
+        <SolidColorBrush x:Key="Border">DarkSlateGray</SolidColorBrush>
+        <SolidColorBrush x:Key="Background">Black</SolidColorBrush>
+        <SolidColorBrush x:Key="Input">#162525</SolidColorBrush>
+        <system:Double x:Key="FontSize">18</system:Double>
+        <FontFamily x:Key="Font">Consolas</FontFamily>
+
+        <!--  Master style  -->
+
+        <Style TargetType="Control">
+            <Setter Property="Background" Value="{StaticResource Background}" />
+            <Setter Property="Foreground" Value="{StaticResource Text}" />
+            <Setter Property="FontFamily" Value="{StaticResource Font}" />
+            <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+        <!--  Control/Input styles  -->
+
+        <Style BasedOn="{StaticResource {x:Type Control}}" TargetType="Label" />
+
+        <Style BasedOn="{StaticResource {x:Type Control}}" TargetType="Button">
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="Background" Value="{StaticResource Border}" />
+                </Trigger>
+            </Style.Triggers>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0">
+                            <ContentPresenter Margin="3"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--  Datagrid Styles  -->
+
+        <Style TargetType="DataGrid">
+            <Setter Property="AutoGenerateColumns" Value="False" />
+            <Setter Property="Background" Value="{StaticResource Background}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="CanUserAddRows" Value="False" />
+            <Setter Property="CanUserResizeRows" Value="False" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="GridLinesVisibility" Value="None" />
+            <Setter Property="HeadersVisibility" Value="None" />
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="SelectionUnit" Value="Cell" />
+            <Setter Property="UseLayoutRounding" Value="False" />
+            <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
+
+        <!--  Container styles  -->
+
+        <Style TargetType="DockPanel">
+            <Setter Property="Background" Value="{StaticResource Background}" />
+        </Style>
+
+        <Style x:Key="PopupStackPanel" TargetType="StackPanel">
+            <Setter Property="Background" Value="{StaticResource Background}" />
+            <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=Input}" />
+            <Style.Resources>
+                <Style BasedOn="{StaticResource {x:Type Control}}" TargetType="TextBox">
+                    <Setter Property="Background" Value="{StaticResource Input}" />
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="IsReadOnly" Value="False" />
+                    <Setter Property="AcceptsReturn" Value="False" />
+                    <Setter Property="Height" Value="30" />
+                    <Setter Property="Margin" Value="10" />
+                </Style>
+                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+                    <Setter Property="Margin" Value="10" />
+                    <Setter Property="HorizontalAlignment" Value="Right" />
+                </Style>
+                <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="Label">
+                    <Setter Property="Margin" Value="10" />
+                </Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Orientation" Value="Horizontal" />
+                    <Setter Property="HorizontalAlignment" Value="Right" />
+                    <Style.Resources>
+                        <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+                            <Setter Property="Margin" Value="0, 10" />
+                            <Setter Property="HorizontalAlignment" Value="Right" />
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </Style.Resources>
+        </Style>
+
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource Background}" />
+            <Setter Property="BorderBrush" Value="{StaticResource Border}" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style x:Key="PopupWindow" TargetType="Window">
+            <Setter Property="Width" Value="300" />
+            <Setter Property="Height" Value="150" />
+            <Setter Property="ResizeMode" Value="NoResize" />
+            <Setter Property="ShowInTaskbar" Value="False" />
+            <Setter Property="WindowStyle" Value="None" />
+        </Style>
+
     </Application.Resources>
 </Application>
