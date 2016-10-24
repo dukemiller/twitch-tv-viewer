@@ -1,7 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.CommandWpf;
 using twitch_tv_viewer.Models;
+using twitch_tv_viewer.Views;
 
 namespace twitch_tv_viewer.ViewModels
 {
@@ -41,7 +44,10 @@ namespace twitch_tv_viewer.ViewModels
 
             Notification = "Notification text";
 
-            // AddCommand = new RoutedCommand();
+            AddCommand = new RelayCommand(Add);
+            EditCommand = new RelayCommand(Edit);
+            DeleteCommand = new RelayCommand(Delete);
+
         }
 
         public ObservableCollection<TwitchChannel> Items
@@ -66,7 +72,26 @@ namespace twitch_tv_viewer.ViewModels
 
         // 
 
-        // public ICommand AddCommand => new Add().ShowDialog();
+        public RelayCommand AddCommand { get; set; }
+
+        public RelayCommand EditCommand { get; set; }
+
+        public RelayCommand DeleteCommand { get; set; }
+
+        private static void Add()
+        {
+            new Add().ShowDialog();
+        }
+
+        private static void Edit()
+        {
+            new Edit().ShowDialog();
+        }
+
+        private static void Delete()
+        {
+            new Delete().ShowDialog();
+        }
 
         // 
 

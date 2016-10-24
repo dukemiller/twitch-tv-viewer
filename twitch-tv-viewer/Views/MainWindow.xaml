@@ -17,11 +17,14 @@
                 <Label Content="{Binding Notification}" />
             </StackPanel>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                <Button Click="Add_Click" Content="Add" />
-                <Button Click="Edit_Click" Content="Edit" />
+                <Button Command="{Binding AddCommand}" Content="Add" />
+                <Button Command="{Binding EditCommand}" Content="Edit" />
             </StackPanel>
         </DockPanel>
-        <DataGrid ItemsSource="{Binding Items}" KeyUp="Datagrid_KeyUp">
+            <DataGrid.InputBindings>
+                <KeyBinding Key="D" Command="{Binding DeleteCommand}"/>
+                <KeyBinding Key="Delete" Command="{Binding DeleteCommand}"/>
+            </DataGrid.InputBindings>
             <DataGrid.Columns>
                 <DataGridTextColumn Width="160"
                                     Binding="{Binding Name}"
