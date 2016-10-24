@@ -8,12 +8,12 @@ using twitch_tv_viewer.Views;
 
 namespace twitch_tv_viewer.ViewModels
 {
-    internal sealed class MainViewModel : INotifyPropertyChanged
+    internal sealed class MainWindowViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<TwitchChannel> _items;
         private string _notification;
 
-        public MainViewModel()
+        public MainWindowViewModel()
         {
             Items = new ObservableCollection<TwitchChannel>
             {

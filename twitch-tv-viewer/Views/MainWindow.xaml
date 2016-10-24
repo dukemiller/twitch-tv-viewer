@@ -9,7 +9,7 @@
         Height="200"
         mc:Ignorable="d">
     <Window.DataContext>
-        <viewModels:MainViewModel />
+        <viewModels:MainWindowViewModel />
     </Window.DataContext>
     <DockPanel>
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
@@ -21,10 +21,10 @@
                 <Button Command="{Binding EditCommand}" Content="Edit" />
             </StackPanel>
         </DockPanel>
-        <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedChannel}" >
+        <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedChannel}">
             <DataGrid.InputBindings>
-                <KeyBinding Key="D" Command="{Binding DeleteCommand}"/>
-                <KeyBinding Key="Delete" Command="{Binding DeleteCommand}"/>
+                <KeyBinding Key="D" Command="{Binding DeleteCommand}" />
+                <KeyBinding Key="Delete" Command="{Binding DeleteCommand}" />
             </DataGrid.InputBindings>
             <DataGrid.Columns>
                 <DataGridTextColumn Width="160"
