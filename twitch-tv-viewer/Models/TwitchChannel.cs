@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace twitch_tv_viewer.Classes
+namespace twitch_tv_viewer.Models
 {
     public class TwitchChannel : IComparable
     {
