@@ -72,6 +72,8 @@ namespace twitch_tv_viewer.ViewModels
 
         // 
 
+        public TwitchChannel SelectedChannel { get; set; }
+
         public RelayCommand AddCommand { get; set; }
 
         public RelayCommand EditCommand { get; set; }

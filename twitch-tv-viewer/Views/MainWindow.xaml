@@ -21,6 +21,7 @@
                 <Button Command="{Binding EditCommand}" Content="Edit" />
             </StackPanel>
         </DockPanel>
+        <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedChannel}" >
             <DataGrid.InputBindings>
                 <KeyBinding Key="D" Command="{Binding DeleteCommand}"/>
                 <KeyBinding Key="Delete" Command="{Binding DeleteCommand}"/>

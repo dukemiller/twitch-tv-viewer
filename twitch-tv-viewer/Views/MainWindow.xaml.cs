@@ -12,10 +12,5 @@ namespace twitch_tv_viewer.Views
         {
             InitializeComponent();
         }
-        private void Datagrid_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Delete)
-                new Delete().ShowDialog();
-        }
     }
 }
