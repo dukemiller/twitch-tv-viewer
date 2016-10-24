@@ -23,7 +23,18 @@
         </DockPanel>
         <DataGrid ItemsSource="{Binding Items}" KeyUp="Datagrid_KeyUp">
             <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding}"/>
+                <DataGridTextColumn Width="160"
+                                    Binding="{Binding Name}"
+                                    ElementStyle="{StaticResource ColumnElementStyle}" />
+                <DataGridTextColumn Width="155"
+                                    Binding="{Binding Game}"
+                                    ElementStyle="{StaticResource ColumnElementStyle}" />
+                <DataGridTextColumn Width="*"
+                                    Binding="{Binding Status}"
+                                    ElementStyle="{StaticResource ColumnElementStyle}" />
+                <DataGridTextColumn Width="80"
+                                    Binding="{Binding Viewers}"
+                                    ElementStyle="{StaticResource ColumnElementStyle}" />
             </DataGrid.Columns>
         </DataGrid>
     </DockPanel>
