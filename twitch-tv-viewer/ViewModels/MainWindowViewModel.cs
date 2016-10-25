@@ -12,6 +12,7 @@ namespace twitch_tv_viewer.ViewModels
     {
         private ObservableCollection<TwitchChannel> _items;
         private string _notification;
+        private TwitchChannel _selectedChannel;
 
         public MainWindowViewModel()
         {
@@ -71,8 +72,18 @@ namespace twitch_tv_viewer.ViewModels
         }
 
         // 
+        
+        public TwitchChannel SelectedChannel
+        {
+            get { return _selectedChannel; }
+            set
+            {
+                _selectedChannel = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public TwitchChannel SelectedChannel { get; set; }
+        // 
 
         public RelayCommand AddCommand { get; set; }
 
