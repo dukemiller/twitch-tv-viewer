@@ -11,6 +11,10 @@
     <Window.DataContext>
         <viewModels:MainWindowViewModel />
     </Window.DataContext>
+    <Window.InputBindings>
+        <KeyBinding Key="A" Command="{Binding AddCommand}" />
+        <KeyBinding Key="E" Command="{Binding EditCommand}" />
+    </Window.InputBindings>
     <DockPanel>
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
             <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
