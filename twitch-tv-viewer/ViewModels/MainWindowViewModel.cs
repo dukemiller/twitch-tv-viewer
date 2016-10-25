@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using twitch_tv_viewer.Models;
+using twitch_tv_viewer.Services;
 using twitch_tv_viewer.Views;
 
 namespace twitch_tv_viewer.ViewModels
@@ -13,38 +14,11 @@ namespace twitch_tv_viewer.ViewModels
         private ObservableCollection<TwitchChannel> _items;
         private string _notification;
         private TwitchChannel _selectedChannel;
+        private readonly TwitchChannelRepository _twitch = new TwitchChannelRepository();
 
         public MainWindowViewModel()
         {
-            Items = new ObservableCollection<TwitchChannel>
-            {
-                new TwitchChannel
-                {
-                    Game = "Dota 2",
-                    Name = "Arteezy",
-                    Status = "Playing games",
-                    Viewers = "19248"
-                },
-
-                new TwitchChannel
-                {
-                    Game = "League of Legends",
-                    Name = "Destiny",
-                    Status = "Watch me dive 1v4 and rage",
-                    Viewers = "200"
-                },
-
-                new TwitchChannel
-                {
-                    Game = "Banjo-Kazooie",
-                    Name = "Stivitybobo",
-                    Status = "I dont like this game anymore",
-                    Viewers = "852"
-                }
-            };
-
             Notification = "Notification text";
-
             WindowLoaded = new RelayCommand(OnLoaded);
             AddCommand = new RelayCommand(Add);
             EditCommand = new RelayCommand(Edit);
@@ -95,6 +69,7 @@ namespace twitch_tv_viewer.ViewModels
 
         private async void OnLoaded()
         {
+            Items = new ObservableCollection<TwitchChannel>(await _twitch.GetChannels());
         }
 
         private static void Add()
