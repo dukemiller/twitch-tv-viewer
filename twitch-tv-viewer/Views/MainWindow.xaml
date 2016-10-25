@@ -32,8 +32,9 @@
             </StackPanel>
         </DockPanel>
         <DataGrid ItemsSource="{Binding Items}"
-                  SelectionUnit="FullRow"
-                  SelectedItem="{Binding SelectedChannel, Mode=TwoWay}">
+                  SelectedItem="{Binding SelectedChannel,
+                                         Mode=TwoWay}"
+                  SelectionUnit="FullRow">
             <DataGrid.InputBindings>
                 <KeyBinding Key="D" Command="{Binding DeleteCommand}" />
                 <KeyBinding Key="Delete" Command="{Binding DeleteCommand}" />

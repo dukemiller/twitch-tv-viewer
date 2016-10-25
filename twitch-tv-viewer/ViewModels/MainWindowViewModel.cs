@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using twitch_tv_viewer.Models;
 using twitch_tv_viewer.Services;
@@ -11,10 +10,10 @@ namespace twitch_tv_viewer.ViewModels
 {
     internal sealed class MainWindowViewModel : INotifyPropertyChanged
     {
+        private readonly TwitchChannelRepository _twitch = new TwitchChannelRepository();
         private ObservableCollection<TwitchChannel> _items;
         private string _notification;
         private TwitchChannel _selectedChannel;
-        private readonly TwitchChannelRepository _twitch = new TwitchChannelRepository();
 
         public MainWindowViewModel()
         {
@@ -46,7 +45,7 @@ namespace twitch_tv_viewer.ViewModels
         }
 
         // 
-        
+
         public TwitchChannel SelectedChannel
         {
             get { return _selectedChannel; }
@@ -66,6 +65,10 @@ namespace twitch_tv_viewer.ViewModels
         public RelayCommand EditCommand { get; set; }
 
         public RelayCommand DeleteCommand { get; set; }
+
+        // 
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private async void OnLoaded()
         {
@@ -87,10 +90,6 @@ namespace twitch_tv_viewer.ViewModels
         {
             new Delete(SelectedChannel).ShowDialog();
         }
-
-        // 
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

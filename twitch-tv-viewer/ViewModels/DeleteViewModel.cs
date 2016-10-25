@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using GalaSoft.MvvmLight.CommandWpf;
 using twitch_tv_viewer.Models;
 using twitch_tv_viewer.Services;
@@ -17,10 +16,9 @@ namespace twitch_tv_viewer.ViewModels
             _usernames = new UsernameRepository();
             CancelCommand = new RelayCommand(Cancel);
             ConfirmCommand = new RelayCommand(Confirm);
-            
         }
 
-        public Action Close { get; set;  }
+        public Action Close { get; set; }
 
         public TwitchChannel Channel { get; set; }
 
@@ -29,7 +27,9 @@ namespace twitch_tv_viewer.ViewModels
         public RelayCommand CancelCommand { get; private set; }
 
         public RelayCommand ConfirmCommand { get; private set; }
-        
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private void Cancel() => Close();
 
         private void Confirm() => Delete();
@@ -39,8 +39,6 @@ namespace twitch_tv_viewer.ViewModels
             _usernames.RemoveUsername(Channel.Name);
             Close();
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

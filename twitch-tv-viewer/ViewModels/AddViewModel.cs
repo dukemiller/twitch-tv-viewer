@@ -6,7 +6,7 @@ using twitch_tv_viewer.Services;
 
 namespace twitch_tv_viewer.ViewModels
 {
-    internal sealed class AddViewModel: INotifyPropertyChanged
+    internal sealed class AddViewModel : INotifyPropertyChanged
     {
         private readonly UsernameRepository _users;
         private string _name;
@@ -37,6 +37,10 @@ namespace twitch_tv_viewer.ViewModels
 
         public RelayCommand ConfirmCommand { get; private set; }
 
+        // 
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private void Cancel() => Close();
 
         private void Confirm() => Add();
@@ -47,10 +51,6 @@ namespace twitch_tv_viewer.ViewModels
                 _users.AddUsername(Name);
             Close();
         }
-
-        // 
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

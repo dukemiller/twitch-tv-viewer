@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Windows;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using twitch_tv_viewer.Models;
@@ -21,11 +20,6 @@ namespace twitch_tv_viewer.Services
             _usernames = new UsernameRepository();
         }
 
-        private string GetChannelUrl()
-        {
-            return "https://api.twitch.tv/kraken/streams?channel=" + string.Join(",", _usernames.GetUsernames());
-        }
-
         public async Task<List<TwitchChannel>> GetChannels()
         {
             try
@@ -34,20 +28,20 @@ namespace twitch_tv_viewer.Services
                 var response = await _client.SendAsync(request);
 
                 if (response.IsSuccessStatusCode)
-                {
                     return await ParseData(response);
-                }
 
-                else
-                {
-                    return new List<TwitchChannel>();
-                }
+                return new List<TwitchChannel>();
             }
 
             catch (Exception)
             {
                 return new List<TwitchChannel>();
             }
+        }
+
+        private string GetChannelUrl()
+        {
+            return "https://api.twitch.tv/kraken/streams?channel=" + string.Join(",", _usernames.GetUsernames());
         }
 
         public static Task<List<TwitchChannel>> GetChannelsStatic()
@@ -85,7 +79,7 @@ namespace twitch_tv_viewer.Services
         private static async Task<List<TwitchChannel>> ParseData(HttpResponseMessage response)
         {
             var content = await response.Content.ReadAsStringAsync();
-            var json = (JObject)await Task.Factory.StartNew(() => JsonConvert.DeserializeObject(content));
+            var json = (JObject) await Task.Factory.StartNew(() => JsonConvert.DeserializeObject(content));
             var streamers = json["streams"].Select(s => new TwitchChannel(s));
             return streamers.OrderBy(c => c).ToList();
         }

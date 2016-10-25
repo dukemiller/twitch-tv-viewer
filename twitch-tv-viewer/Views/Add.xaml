@@ -11,7 +11,7 @@
         mc:Ignorable="d">
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CancelCommand}" />
-        <KeyBinding Key="Enter" Command="{Binding ConfirmCommand}"/>
+        <KeyBinding Key="Enter" Command="{Binding ConfirmCommand}" />
     </Window.InputBindings>
     <Border>
         <StackPanel Style="{StaticResource PopupStackPanel}">

@@ -7,15 +7,9 @@ namespace twitch_tv_viewer.Models
 {
     public class TwitchChannel : IComparable
     {
-        public string Name { get; set; }
-
-        public string Game { get; set; }
-
-        public string Status { get; set; }
-
-        public string Viewers { get; set; }
-
-        public TwitchChannel() { }
+        public TwitchChannel()
+        {
+        }
 
         public TwitchChannel(JToken data)
         {
@@ -24,6 +18,22 @@ namespace twitch_tv_viewer.Models
             Game = channel["game"]?.ToString() ?? "no game";
             Status = channel["status"]?.ToString().Trim() ?? "no status";
             Viewers = data["viewers"]?.ToString() ?? "???";
+        }
+
+        public string Name { get; set; }
+
+        public string Game { get; set; }
+
+        public string Status { get; set; }
+
+        public string Viewers { get; set; }
+
+        public int CompareTo(object obj)
+        {
+            var that = obj as TwitchChannel;
+            if (that == null)
+                return 0;
+            return string.Compare(Name.ToLower(), that.Name.ToLower(), StringComparison.Ordinal);
         }
 
         public async Task<string> StartStream()
@@ -48,13 +58,5 @@ namespace twitch_tv_viewer.Models
         }
 
         public void OpenChatroom() => Process.Start($"http://twitch.tv/{Name}/chat?popout=");
-
-        public int CompareTo(object obj)
-        {
-            var that = obj as TwitchChannel;
-            if (that == null)
-                return 0;
-            return string.Compare(Name.ToLower(), that.Name.ToLower(), StringComparison.Ordinal);
-        }
     }
 }
