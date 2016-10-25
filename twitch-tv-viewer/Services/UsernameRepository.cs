@@ -20,13 +20,13 @@ namespace twitch_tv_viewer.Services
 
         public void AddUsername(string username)
         {
-            Settings.Default.Usernames.Add(username.ToLower());
+            Settings.Default.Usernames.Add(username.ToLower().Trim());
             Settings.Default.Save();
         }
 
         public void RemoveUsername(string username)
         {
-            Settings.Default.Usernames.Remove(username.ToLower());
+            Settings.Default.Usernames.Remove(username.ToLower().Trim());
             Settings.Default.Save();
         }
     }
