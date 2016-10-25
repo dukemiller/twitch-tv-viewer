@@ -10,9 +10,11 @@ namespace twitch_tv_viewer.ViewModels
 {
     internal sealed class DeleteViewModel : INotifyPropertyChanged
     {
+        private readonly UsernameRepository _usernames;
 
         public DeleteViewModel()
         {
+            _usernames = new UsernameRepository();
             CancelCommand = new RelayCommand(Cancel);
             ConfirmCommand = new RelayCommand(Confirm);
             
@@ -30,7 +32,13 @@ namespace twitch_tv_viewer.ViewModels
         
         private void Cancel() => Close();
 
-        private void Confirm() => Close();
+        private void Confirm() => Delete();
+
+        private void Delete()
+        {
+            _usernames.RemoveUsername(Channel.Name);
+            Close();
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
