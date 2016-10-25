@@ -12,12 +12,12 @@ namespace twitch_tv_viewer.Services
     internal class TwitchChannelRepository : ITwitchChannelRepository
     {
         private readonly HttpClient _client;
-        private readonly UsernameRepository _usernames;
+        private readonly IUsernameRepository _usernames;
 
-        public TwitchChannelRepository()
+        public TwitchChannelRepository(IUsernameRepository usernameRepository)
         {
             _client = new HttpClient();
-            _usernames = new UsernameRepository();
+            _usernames = usernameRepository;
         }
 
         public async Task<List<TwitchChannel>> GetChannels()

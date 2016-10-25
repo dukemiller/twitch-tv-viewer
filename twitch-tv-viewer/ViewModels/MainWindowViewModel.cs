@@ -10,7 +10,7 @@ namespace twitch_tv_viewer.ViewModels
 {
     internal sealed class MainWindowViewModel : INotifyPropertyChanged
     {
-        private readonly TwitchChannelRepository _twitch = new TwitchChannelRepository();
+        private readonly TwitchChannelRepository _twitch;
         private ObservableCollection<TwitchChannel> _channels;
         private string _notification;
         private TwitchChannel _selectedChannel;
@@ -18,6 +18,8 @@ namespace twitch_tv_viewer.ViewModels
         public MainWindowViewModel()
         {
             Notification = "Loading ...";
+            _twitch = new TwitchChannelRepository(new UsernameRepository());
+
             WindowLoaded = new RelayCommand(OnLoaded);
             AddCommand = new RelayCommand(Add);
             EditCommand = new RelayCommand(Edit);
