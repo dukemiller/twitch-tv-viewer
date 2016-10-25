@@ -101,9 +101,9 @@ namespace twitch_tv_viewer.ViewModels
             new Edit().ShowDialog();
         }
 
-        private static void Delete()
+        private void Delete()
         {
-            new Delete().ShowDialog();
+            new Delete(SelectedChannel).ShowDialog();
         }
 
         // 

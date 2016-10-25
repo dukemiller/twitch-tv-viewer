@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using twitch_tv_viewer.Models;
+using twitch_tv_viewer.ViewModels;
 
 namespace twitch_tv_viewer.Views
 {
@@ -19,8 +21,9 @@ namespace twitch_tv_viewer.Views
     /// </summary>
     public partial class Delete : Window
     {
-        public Delete()
+        public Delete(TwitchChannel channel)
         {
+            DataContext = new DeleteViewModel {Close = Close, Channel = channel};
             InitializeComponent();
         }
     }
