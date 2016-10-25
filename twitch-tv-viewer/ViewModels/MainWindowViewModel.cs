@@ -45,10 +45,10 @@ namespace twitch_tv_viewer.ViewModels
 
             Notification = "Notification text";
 
+            WindowLoaded = new RelayCommand(OnLoaded);
             AddCommand = new RelayCommand(Add);
             EditCommand = new RelayCommand(Edit);
             DeleteCommand = new RelayCommand(Delete);
-
         }
 
         public ObservableCollection<TwitchChannel> Items
@@ -85,11 +85,17 @@ namespace twitch_tv_viewer.ViewModels
 
         // 
 
+        public RelayCommand WindowLoaded { get; set; }
+
         public RelayCommand AddCommand { get; set; }
 
         public RelayCommand EditCommand { get; set; }
 
         public RelayCommand DeleteCommand { get; set; }
+
+        private async void OnLoaded()
+        {
+        }
 
         private static void Add()
         {
