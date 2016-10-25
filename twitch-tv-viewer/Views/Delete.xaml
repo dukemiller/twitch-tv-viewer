@@ -5,13 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:twitch_tv_viewer.ViewModels"
         Title="Delete"
-        Width="300"
-        Height="150"
         d:DataContext="{d:DesignInstance viewModels:DeleteViewModel}"
-        ResizeMode="NoResize"
-        ShowInTaskbar="False"
+        Style="{StaticResource PopupWindow}"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None"
         mc:Ignorable="d">
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CancelCommand}"/>
