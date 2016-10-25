@@ -103,6 +103,7 @@
     <Compile Include="Services\IUsernameRepository.cs" />
     <Compile Include="Services\TwitchChannelRepository.cs" />
     <Compile Include="Services\UsernameRepository.cs" />
+    <Compile Include="ViewModels\AddViewModel.cs" />
     <Compile Include="ViewModels\DeleteViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Models\TwitchChannel.cs" />
