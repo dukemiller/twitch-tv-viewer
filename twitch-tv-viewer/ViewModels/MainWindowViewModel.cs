@@ -11,7 +11,7 @@ namespace twitch_tv_viewer.ViewModels
     internal sealed class MainWindowViewModel : INotifyPropertyChanged
     {
         private readonly TwitchChannelRepository _twitch = new TwitchChannelRepository();
-        private ObservableCollection<TwitchChannel> _items;
+        private ObservableCollection<TwitchChannel> _channels;
         private string _notification;
         private TwitchChannel _selectedChannel;
 
@@ -24,12 +24,12 @@ namespace twitch_tv_viewer.ViewModels
             DeleteCommand = new RelayCommand(Delete);
         }
 
-        public ObservableCollection<TwitchChannel> Items
+        public ObservableCollection<TwitchChannel> Channels
         {
-            get { return _items; }
+            get { return _channels; }
             set
             {
-                _items = value;
+                _channels = value;
                 OnPropertyChanged();
             }
         }
@@ -43,8 +43,6 @@ namespace twitch_tv_viewer.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        // 
 
         public TwitchChannel SelectedChannel
         {
@@ -72,7 +70,7 @@ namespace twitch_tv_viewer.ViewModels
 
         private async void OnLoaded()
         {
-            Items = new ObservableCollection<TwitchChannel>(await _twitch.GetChannels());
+            Channels = new ObservableCollection<TwitchChannel>(await _twitch.GetChannels());
             Notification = "";
         }
 

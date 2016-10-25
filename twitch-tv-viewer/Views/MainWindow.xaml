@@ -31,7 +31,7 @@
                 <Button Command="{Binding EditCommand}" Content="Edit" />
             </StackPanel>
         </DockPanel>
-        <DataGrid ItemsSource="{Binding Items}"
+        <DataGrid ItemsSource="{Binding Channels}"
                   SelectedItem="{Binding SelectedChannel,
                                          Mode=TwoWay}"
                   SelectionUnit="FullRow">
