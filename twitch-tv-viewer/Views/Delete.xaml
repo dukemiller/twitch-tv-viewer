@@ -10,12 +10,13 @@
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
     <Window.InputBindings>
-        <KeyBinding Key="Escape" Command="{Binding CancelCommand}"/>
+        <KeyBinding Key="Escape" Command="{Binding CancelCommand}" />
+        <KeyBinding Key="Enter" Command="{Binding ConfirmCommand}" />
     </Window.InputBindings>
     <Border>
         <StackPanel Style="{StaticResource PopupStackPanel}">
             <Label>Confirm delete of channel:</Label>
-            <TextBox IsReadOnly="True" Text="{Binding Channel.Name}" />
+            <TextBox IsReadOnly="True" Text="{Binding Channel.Name, UpdateSourceTrigger=PropertyChanged}" />
             <StackPanel>
                 <Button Command="{Binding CancelCommand}">Cancel</Button>
                 <Button Command="{Binding ConfirmCommand}">Confirm</Button>
