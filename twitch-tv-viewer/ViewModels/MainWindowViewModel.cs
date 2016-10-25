@@ -18,7 +18,7 @@ namespace twitch_tv_viewer.ViewModels
 
         public MainWindowViewModel()
         {
-            Notification = "Notification text";
+            Notification = "Loading ...";
             WindowLoaded = new RelayCommand(OnLoaded);
             AddCommand = new RelayCommand(Add);
             EditCommand = new RelayCommand(Edit);
@@ -70,6 +70,7 @@ namespace twitch_tv_viewer.ViewModels
         private async void OnLoaded()
         {
             Items = new ObservableCollection<TwitchChannel>(await _twitch.GetChannels());
+            Notification = "";
         }
 
         private static void Add()
