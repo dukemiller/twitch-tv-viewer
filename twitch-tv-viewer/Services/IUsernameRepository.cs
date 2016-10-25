@@ -4,7 +4,7 @@ namespace twitch_tv_viewer.Services
 {
     internal interface IUsernameRepository
     {
-        List<string> GetUsernames();
+        IEnumerable<string> GetUsernames();
         void AddUsername(string username);
         void RemoveUsername(string username);
     }

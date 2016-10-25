@@ -13,7 +13,7 @@ namespace twitch_tv_viewer.Services
                 Settings.Default.Usernames = new StringCollection();
         }
 
-        public List<string> GetUsernames()
+        public IEnumerable<string> GetUsernames()
         {
             return Settings.Default.Usernames.Cast<string>().ToList();
         }
