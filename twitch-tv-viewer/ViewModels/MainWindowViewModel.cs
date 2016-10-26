@@ -74,21 +74,12 @@ namespace twitch_tv_viewer.ViewModels
             Notification = "";
         }
 
-        private static void Add()
-        {
-            new Add().ShowDialog();
-        }
+        private static void Add() => new Add().ShowDialog();
 
-        private static void Edit()
-        {
-            new Edit().ShowDialog();
-        }
+        private static void Edit() => new Edit().ShowDialog();
 
-        private void Delete()
-        {
-            new Delete(SelectedChannel).ShowDialog();
-        }
+        private void Delete() => new Delete(SelectedChannel).ShowDialog();
 
-        
+
     }
 }
