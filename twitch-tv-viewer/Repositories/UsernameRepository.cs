@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using twitch_tv_viewer.Properties;
 
-namespace twitch_tv_viewer.Services
+namespace twitch_tv_viewer.Repositories
 {
     internal class UsernameRepository : IUsernameRepository
     {

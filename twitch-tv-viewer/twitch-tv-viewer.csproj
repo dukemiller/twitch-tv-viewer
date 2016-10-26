@@ -95,10 +95,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Services\ITwitchChannelRepository.cs" />
-    <Compile Include="Services\IUsernameRepository.cs" />
-    <Compile Include="Services\TwitchChannelRepository.cs" />
-    <Compile Include="Services\UsernameRepository.cs" />
+    <Compile Include="Repositories\ITwitchChannelRepository.cs" />
+    <Compile Include="Repositories\IUsernameRepository.cs" />
+    <Compile Include="Repositories\TwitchChannelRepository.cs" />
+    <Compile Include="Repositories\UsernameRepository.cs" />
     <Compile Include="ViewModels\AddViewModel.cs" />
     <Compile Include="ViewModels\DeleteViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

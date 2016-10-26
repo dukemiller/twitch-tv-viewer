@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using GalaSoft.MvvmLight.CommandWpf;
-using twitch_tv_viewer.Services;
+using twitch_tv_viewer.Repositories;
 
 namespace twitch_tv_viewer.ViewModels
 {

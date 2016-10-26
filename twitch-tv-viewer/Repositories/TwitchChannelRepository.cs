@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using twitch_tv_viewer.Models;
 
-namespace twitch_tv_viewer.Services
+namespace twitch_tv_viewer.Repositories
 {
     internal class TwitchChannelRepository : ITwitchChannelRepository
     {
