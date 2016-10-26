@@ -1,12 +1,11 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using twitch_tv_viewer.Repositories;
 
 namespace twitch_tv_viewer.ViewModels
 {
-    internal sealed class AddViewModel : INotifyPropertyChanged
+    internal sealed class AddViewModel : ViewModelBase
     {
         private readonly UsernameRepository _users;
         private string _name;
@@ -25,7 +24,7 @@ namespace twitch_tv_viewer.ViewModels
             set
             {
                 _name = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -39,8 +38,6 @@ namespace twitch_tv_viewer.ViewModels
 
         // 
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private void Cancel() => Close();
 
         private void Confirm() => Add();
@@ -50,11 +47,6 @@ namespace twitch_tv_viewer.ViewModels
             if (Name.Length > 0)
                 _users.AddUsername(Name);
             Close();
-        }
-
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
