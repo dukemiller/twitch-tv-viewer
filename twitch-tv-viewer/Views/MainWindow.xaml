@@ -9,6 +9,15 @@
         Width="800"
         Height="200"
         mc:Ignorable="d">
+    <Window.Resources>
+        <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="Label">
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                    <BeginStoryboard Storyboard="{StaticResource Fade}" />
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Window.DataContext>
         <viewModels:MainWindowViewModel />
     </Window.DataContext>
@@ -24,7 +33,7 @@
     <DockPanel>
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
             <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
-                <Label Content="{Binding Notification}" />
+                <Label Content="{Binding Notification, NotifyOnTargetUpdated=True}" />
             </StackPanel>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                 <Button Command="{Binding AddCommand}" Content="Add" />

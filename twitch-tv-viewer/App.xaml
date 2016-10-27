@@ -5,6 +5,27 @@
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
 
+        <!--  Storyboards  -->
+
+        <Storyboard x:Key="Fade">
+            <DoubleAnimation Duration="0:0:0.50"
+                             From="0.0"
+                             Storyboard.TargetProperty="Opacity"
+                             To="1.0" />
+            <DoubleAnimation BeginTime="0:0:2.50"
+                             Duration="0:0:1.00"
+                             From="1.0"
+                             Storyboard.TargetProperty="Opacity"
+                             To="0.0" />
+        </Storyboard>
+
+        <Storyboard x:Key="FadeIn">
+            <DoubleAnimation Duration="0:0:0.25"
+                             From="0.0"
+                             Storyboard.TargetProperty="Opacity"
+                             To="1.0" />
+        </Storyboard>
+
         <!--  Constants  -->
 
         <SolidColorBrush x:Key="Text">GreenYellow</SolidColorBrush>
