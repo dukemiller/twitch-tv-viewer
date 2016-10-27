@@ -1,6 +1,7 @@
 ﻿using System;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using twitch_tv_viewer.Repositories;
 
 namespace twitch_tv_viewer.ViewModels
@@ -45,7 +46,10 @@ namespace twitch_tv_viewer.ViewModels
         private void Add()
         {
             if (Name.Length > 0)
+            {
                 _users.AddUsername(Name);
+                Messenger.Default.Send(new ResetMessage());
+            }
             Close();
         }
     }

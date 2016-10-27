@@ -111,6 +111,7 @@
     <Compile Include="Repositories\IUsernameRepository.cs" />
     <Compile Include="Repositories\TwitchChannelRepository.cs" />
     <Compile Include="Repositories\UsernameRepository.cs" />
+    <Compile Include="ResetMessage.cs" />
     <Compile Include="Services\ITwitchChannelService.cs" />
     <Compile Include="Services\TwitchChannelService.cs" />
     <Compile Include="ViewModels\AddViewModel.cs" />

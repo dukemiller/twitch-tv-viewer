@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using twitch_tv_viewer.Models;
 using twitch_tv_viewer.Repositories;
 using twitch_tv_viewer.Services;
@@ -30,6 +31,10 @@ namespace twitch_tv_viewer.ViewModels
             DeleteCommand = new RelayCommand(Delete);
             ClickCommand = new RelayCommand(Click);
             OpenChatCommand = new RelayCommand(OpenChat);
+            RefreshCommand = new RelayCommand(Refresh);
+
+            // on any sent message, set the counter to 30 to instantly refresh
+            Messenger.Default.Register<ResetMessage>(this, message => _counter = 30);
         }
 
         public ObservableCollection<TwitchChannel> Channels
@@ -76,6 +81,10 @@ namespace twitch_tv_viewer.ViewModels
 
         public RelayCommand OpenChatCommand { get; set; }
 
+        public RelayCommand RefreshCommand { get; set; }
+
+        // 
+        
         private async void Main()
         {
             while (true)
@@ -89,6 +98,16 @@ namespace twitch_tv_viewer.ViewModels
         
         // 
 
+        private async void Refresh()
+        {
+            // find a way to not allow multiple presses before refresh
+            if (_counter > 4)
+            {
+                Notification = "Refreshing ...";
+                await Task.Delay(2000);
+                Messenger.Default.Send(new ResetMessage());
+            }
+        }
 
         private async void OnLoaded()
         {

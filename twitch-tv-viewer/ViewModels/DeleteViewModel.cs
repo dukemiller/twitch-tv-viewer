@@ -1,6 +1,7 @@
 ﻿using System;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using twitch_tv_viewer.Models;
 using twitch_tv_viewer.Repositories;
 
@@ -34,6 +35,7 @@ namespace twitch_tv_viewer.ViewModels
         private void Delete()
         {
             _usernames.RemoveUsername(Channel.Name);
+            Messenger.Default.Send(new ResetMessage());
             Close();
         }
     }
