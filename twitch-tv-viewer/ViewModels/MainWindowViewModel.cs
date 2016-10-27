@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using twitch_tv_viewer.Models;
 using twitch_tv_viewer.Repositories;
+using twitch_tv_viewer.Services;
 using twitch_tv_viewer.Views;
 
 namespace twitch_tv_viewer.ViewModels
@@ -12,6 +13,7 @@ namespace twitch_tv_viewer.ViewModels
     {
         private readonly TwitchChannelRepository _twitch;
         private ObservableCollection<TwitchChannel> _channels;
+        private readonly TwitchChannelService _twitchService;
         private string _notification;
         private TwitchChannel _selectedChannel;
         private int _counter;
@@ -20,6 +22,7 @@ namespace twitch_tv_viewer.ViewModels
         {
             Notification = "Loading ...";
             _twitch = new TwitchChannelRepository(new UsernameRepository());
+            _twitchService = new TwitchChannelService();
 
             WindowLoaded = new RelayCommand(OnLoaded);
             AddCommand = new RelayCommand(Add);
