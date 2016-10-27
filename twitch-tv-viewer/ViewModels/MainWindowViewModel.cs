@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using twitch_tv_viewer.Models;
@@ -13,6 +14,7 @@ namespace twitch_tv_viewer.ViewModels
         private ObservableCollection<TwitchChannel> _channels;
         private string _notification;
         private TwitchChannel _selectedChannel;
+        private int _counter;
 
         public MainWindowViewModel()
         {
@@ -65,6 +67,17 @@ namespace twitch_tv_viewer.ViewModels
 
         public RelayCommand DeleteCommand { get; set; }
 
+        private async void Main()
+        {
+            while (true)
+            {
+                _counter = 0;
+                while (_counter++ < 30)
+                    await Task.Delay(1000);
+                Channels = new ObservableCollection<TwitchChannel>(await _twitch.GetChannels());
+            }
+        }
+        
         // 
 
 
@@ -72,6 +85,7 @@ namespace twitch_tv_viewer.ViewModels
         {
             Channels = new ObservableCollection<TwitchChannel>(await _twitch.GetChannels());
             Notification = "";
+            Main();
         }
 
         private static void Add() => new Add().ShowDialog();
