@@ -28,6 +28,8 @@ namespace twitch_tv_viewer.ViewModels
             AddCommand = new RelayCommand(Add);
             EditCommand = new RelayCommand(Edit);
             DeleteCommand = new RelayCommand(Delete);
+            ClickCommand = new RelayCommand(Click);
+            OpenChatCommand = new RelayCommand(OpenChat);
         }
 
         public ObservableCollection<TwitchChannel> Channels
@@ -70,6 +72,10 @@ namespace twitch_tv_viewer.ViewModels
 
         public RelayCommand DeleteCommand { get; set; }
 
+        public RelayCommand ClickCommand { get; set; }
+
+        public RelayCommand OpenChatCommand { get; set; }
+
         private async void Main()
         {
             while (true)
@@ -97,6 +103,15 @@ namespace twitch_tv_viewer.ViewModels
 
         private void Delete() => new Delete(SelectedChannel).ShowDialog();
 
+        private async void Click()
+        {
+            if (SelectedChannel != null)
+            {
+                Notification = $"Opening stream for {SelectedChannel.Name} ...";
+                await _twitchService.PlayVideo(SelectedChannel);
+            }
+        }
 
+        private void OpenChat() => _twitchService.OpenChat(SelectedChannel);
     }
 }
