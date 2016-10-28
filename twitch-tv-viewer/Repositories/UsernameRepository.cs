@@ -20,14 +20,22 @@ namespace twitch_tv_viewer.Repositories
 
         public void AddUsername(string username)
         {
-            Settings.Default.Usernames.Add(username.ToLower().Trim());
-            Settings.Default.Save();
+            username = username.ToLower().Trim();
+            if (!Settings.Default.Usernames.Contains(username))
+            {
+                Settings.Default.Usernames.Add(username);
+                Settings.Default.Save();
+            }
         }
 
         public void RemoveUsername(string username)
         {
-            Settings.Default.Usernames.Remove(username.ToLower().Trim());
-            Settings.Default.Save();
+            username = username.ToLower().Trim();
+            if (Settings.Default.Usernames.Contains(username))
+            {
+                Settings.Default.Usernames.Remove(username);
+                Settings.Default.Save();
+            }
         }
     }
 }
