@@ -12,7 +12,10 @@
             <i:InvokeCommandAction Command="{Binding WindowLoaded}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <DataGrid ItemsSource="{Binding Channels}"
+    <DataGrid Height="auto"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
+              ItemsSource="{Binding Channels}"
               SelectedItem="{Binding SelectedChannel,
                                      Mode=TwoWay}"
               SelectionUnit="FullRow">
