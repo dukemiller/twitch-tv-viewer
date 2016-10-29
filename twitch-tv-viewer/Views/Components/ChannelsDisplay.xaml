@@ -17,8 +17,7 @@
               VerticalAlignment="Stretch"
               ItemsSource="{Binding Channels}"
               SelectedItem="{Binding SelectedChannel,
-                                     Mode=TwoWay}"
-              SelectionUnit="FullRow">
+                                     Mode=TwoWay}">
         <DataGrid.ContextMenu>
             <ContextMenu>
                 <MenuItem Command="{Binding AddCommand}" Header="Add" />

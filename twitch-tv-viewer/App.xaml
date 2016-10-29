@@ -128,7 +128,7 @@
             <Setter Property="GridLinesVisibility" Value="None" />
             <Setter Property="HeadersVisibility" Value="None" />
             <Setter Property="IsReadOnly" Value="True" />
-            <Setter Property="SelectionUnit" Value="Cell" />
+            <Setter Property="SelectionUnit" Value="FullRow" />
             <Setter Property="UseLayoutRounding" Value="False" />
             <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
             <Setter Property="HorizontalScrollBarVisibility" Value="Hidden" />
