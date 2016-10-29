@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
@@ -35,6 +36,7 @@ namespace twitch_tv_viewer.ViewModels.Components
             ClickCommand = new RelayCommand(Click);
             OpenChatCommand = new RelayCommand(OpenChat);
             WindowLoaded = new RelayCommand(OnLoaded);
+            CopyCommand = new RelayCommand(Copy);
 
             // on any sent message, set the counter to 30 to instantly refresh
             Messenger.Default.Register<ResetMessage>(this, message => Counter = 30);
@@ -68,6 +70,8 @@ namespace twitch_tv_viewer.ViewModels.Components
 
         public RelayCommand OpenChatCommand { get; set; }
 
+        public RelayCommand CopyCommand { get; set; }
+
         private async void OnLoaded() => await Main();
 
         private void Delete() => new Delete(SelectedChannel).ShowDialog();
@@ -81,6 +85,15 @@ namespace twitch_tv_viewer.ViewModels.Components
                     Message = $"Opening stream for {SelectedChannel.Name} ..."
                 });
                 await _twitchService.PlayVideo(SelectedChannel);
+            }
+        }
+
+        private void Copy()
+        {
+            if (SelectedChannel != null)
+            {
+                Clipboard.Clear();
+                Clipboard.SetText(SelectedChannel.Name);
             }
         }
 

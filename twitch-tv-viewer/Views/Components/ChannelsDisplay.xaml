@@ -27,6 +27,7 @@
             <KeyBinding Key="D" Command="{Binding DeleteCommand}" />
             <KeyBinding Key="Delete" Command="{Binding DeleteCommand}" />
             <KeyBinding Key="Enter" Command="{Binding ClickCommand}" />
+            <KeyBinding Key="C" Modifiers="Control" Command="{Binding CopyCommand}" />
         </DataGrid.InputBindings>
         <DataGrid.Columns>
             <DataGridTextColumn Width="160"
