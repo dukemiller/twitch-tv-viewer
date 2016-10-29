@@ -98,6 +98,7 @@
             <Setter Property="SelectionUnit" Value="Cell" />
             <Setter Property="UseLayoutRounding" Value="False" />
             <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
+            <Setter Property="HorizontalScrollBarVisibility" Value="Hidden" />
             <Setter Property="Margin" Value="5" />
         </Style>
 
@@ -121,8 +122,7 @@
                 <MultiDataTrigger>
                     <MultiDataTrigger.Conditions>
                         <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
-                        <Condition Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}, Mode=OneWay}"
-                                   Value="Name" />
+                        <Condition Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}, Mode=OneWay}" Value="Name" />
                     </MultiDataTrigger.Conditions>
                     <Setter Property="Background" Value="#101C1C" />
                 </MultiDataTrigger>

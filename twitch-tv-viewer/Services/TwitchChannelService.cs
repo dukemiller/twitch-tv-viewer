@@ -15,7 +15,7 @@ namespace twitch_tv_viewer.Services
             var startInfo = new ProcessStartInfo
             {
                 FileName = "livestreamer",
-                Arguments = $"--http-query-param client_id=spyiu9jqdnfjtwv6l1xjk5zgt8qb91l twitch.tv/{channel.Name} high",
+                Arguments = $"--http-query-param client_id=spyiu9jqdnfjtwv6l1xjk5zgt8qb91l twitch.tv/{channel.Name} source",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 CreateNoWindow = true
