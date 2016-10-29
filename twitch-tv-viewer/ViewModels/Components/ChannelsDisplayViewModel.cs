@@ -37,6 +37,7 @@ namespace twitch_tv_viewer.ViewModels.Components
             OpenChatCommand = new RelayCommand(OpenChat);
             WindowLoaded = new RelayCommand(OnLoaded);
             CopyCommand = new RelayCommand(Copy);
+            AddCommand = new RelayCommand(Add);
 
             // on any sent message, set the counter to 30 to instantly refresh
             Messenger.Default.Register<ResetMessage>(this, message => Counter = 30);
@@ -72,6 +73,8 @@ namespace twitch_tv_viewer.ViewModels.Components
 
         public RelayCommand CopyCommand { get; set; }
 
+        public RelayCommand AddCommand { get; set; }
+
         private async void OnLoaded() => await Main();
 
         private void Delete() => new Delete(SelectedChannel).ShowDialog();
@@ -96,6 +99,8 @@ namespace twitch_tv_viewer.ViewModels.Components
                 Clipboard.SetText(SelectedChannel.Name);
             }
         }
+
+        private static void Add() => new Add().ShowDialog();
 
         private async Task Main()
         {

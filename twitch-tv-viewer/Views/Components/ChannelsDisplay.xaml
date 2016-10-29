@@ -18,6 +18,7 @@
               SelectionUnit="FullRow">
         <DataGrid.ContextMenu>
             <ContextMenu>
+                <MenuItem Command="{Binding AddCommand}" Header="Add" />
                 <MenuItem Command="{Binding OpenChatCommand}" Header="Open chat" />
                 <MenuItem Command="{Binding DeleteCommand}" Header="Delete" />
             </ContextMenu>
