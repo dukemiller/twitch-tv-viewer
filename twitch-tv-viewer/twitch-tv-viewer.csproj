@@ -76,14 +76,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModels\Components\ChannelsDisplayViewModel.cs" />
-    <Compile Include="ViewModels\Components\NotificationAreaViewModel.cs" />
-    <Compile Include="Views\Components\NotificationArea.xaml.cs">
-      <DependentUpon>NotificationArea.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Components\ChannelsDisplay.xaml.cs">
       <DependentUpon>ChannelsDisplay.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\Components\NotificationArea.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
