@@ -8,6 +8,7 @@
 *.sln.docstates
 *.sln.DotSettings
 *Annotations[0-9]*.cs
+*twitch-tv-viewer.exe
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
