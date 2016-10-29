@@ -19,6 +19,7 @@
         <DataGrid.ContextMenu>
             <ContextMenu>
                 <MenuItem Command="{Binding OpenChatCommand}" Header="Open chat" />
+                <MenuItem Command="{Binding DeleteCommand}" Header="Delete" />
             </ContextMenu>
         </DataGrid.ContextMenu>
         <DataGrid.InputBindings>
