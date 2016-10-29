@@ -7,5 +7,6 @@ namespace twitch_tv_viewer.Repositories
         IEnumerable<string> GetUsernames();
         void AddUsername(string username);
         void RemoveUsername(string username);
+        void SetUsernames(IEnumerable<string> usernames);
     }
 }

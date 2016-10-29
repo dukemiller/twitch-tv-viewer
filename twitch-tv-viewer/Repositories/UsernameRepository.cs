@@ -37,5 +37,14 @@ namespace twitch_tv_viewer.Repositories
                 Settings.Default.Save();
             }
         }
+
+        public void SetUsernames(IEnumerable<string> usernames)
+        {
+            var placeholder = new StringCollection();
+            foreach (var user in usernames)
+                placeholder.Add(user.ToLower().Trim());
+            Settings.Default.Usernames = placeholder;
+            Settings.Default.Save();
+        }
     }
 }
