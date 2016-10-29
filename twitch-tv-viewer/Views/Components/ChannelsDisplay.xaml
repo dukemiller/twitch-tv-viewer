@@ -19,6 +19,7 @@
         <DataGrid.ContextMenu>
             <ContextMenu>
                 <MenuItem Command="{Binding AddCommand}" Header="Add" />
+                <MenuItem Command="{Binding ClickCommand}" Header="Start stream" />
                 <MenuItem Command="{Binding OpenChatCommand}" Header="Open chat" />
                 <MenuItem Command="{Binding DeleteCommand}" Header="Delete" />
             </ContextMenu>
@@ -28,7 +29,9 @@
             <KeyBinding Key="D" Command="{Binding DeleteCommand}" />
             <KeyBinding Key="Delete" Command="{Binding DeleteCommand}" />
             <KeyBinding Key="Enter" Command="{Binding ClickCommand}" />
-            <KeyBinding Key="C" Modifiers="Control" Command="{Binding CopyCommand}" />
+            <KeyBinding Key="C"
+                        Command="{Binding CopyCommand}"
+                        Modifiers="Control" />
         </DataGrid.InputBindings>
         <DataGrid.Columns>
             <DataGridTextColumn Width="160"
