@@ -131,6 +131,16 @@ namespace twitch_tv_viewer.ViewModels.Components
             }
         }
 
-        private void OpenChat() => _twitchService.OpenChat(SelectedChannel);
+        private void OpenChat()
+        {
+            if (SelectedChannel != null)
+            {
+                Messenger.Default.Send(new NotificationMessage
+                {
+                    Message = $"Opening chat for {SelectedChannel.Name} ..."
+                });
+                _twitchService.OpenChat(SelectedChannel);
+            }
+        }
     }
 }
