@@ -2,30 +2,15 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:twitch_tv_viewer.ViewModels"
         Title="TwitchTV Viewer"
         Width="800"
         Height="200"
         mc:Ignorable="d">
-    <Window.Resources>
-        <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="Label">
-            <Style.Triggers>
-                <EventTrigger RoutedEvent="Binding.TargetUpdated">
-                    <BeginStoryboard Storyboard="{StaticResource Fade}" />
-                </EventTrigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
     <Window.DataContext>
         <viewModels:MainWindowViewModel />
     </Window.DataContext>
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding WindowLoaded}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
     <Window.InputBindings>
         <KeyBinding Key="A" Command="{Binding AddCommand}" />
         <KeyBinding Key="E" Command="{Binding EditCommand}" />
@@ -34,42 +19,13 @@
     <DockPanel>
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
             <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
-                <Label Content="{Binding Notification, NotifyOnTargetUpdated=True}" />
+                <Label Content="{Binding Notification, NotifyOnTargetUpdated=True}" Style="{StaticResource Notification}" />
             </StackPanel>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                 <Button Command="{Binding AddCommand}" Content="Add" />
                 <Button Command="{Binding EditCommand}" Content="Edit" />
             </StackPanel>
         </DockPanel>
-        <DataGrid ItemsSource="{Binding Channels}"
-                  SelectedItem="{Binding SelectedChannel,
-                                         Mode=TwoWay}"
-                  SelectionUnit="FullRow">
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Command="{Binding OpenChatCommand}" Header="Open chat" />
-                </ContextMenu>
-            </DataGrid.ContextMenu>
-            <DataGrid.InputBindings>
-                <MouseBinding Command="{Binding ClickCommand}" MouseAction="LeftDoubleClick" />
-                <KeyBinding Key="D" Command="{Binding DeleteCommand}" />
-                <KeyBinding Key="Delete" Command="{Binding DeleteCommand}" />
-                <KeyBinding Key="Enter" Command="{Binding ClickCommand}" />
-            </DataGrid.InputBindings>
-            <DataGrid.Columns>
-                <DataGridTextColumn Width="160"
-                                    Binding="{Binding Name}"
-                                    ElementStyle="{StaticResource ColumnElementStyle}" />
-                <DataGridTextColumn Width="155"
-                                    Binding="{Binding Game}"
-                                    ElementStyle="{StaticResource ColumnElementStyle}" />
-                <DataGridTextColumn Width="*"
-                                    Binding="{Binding Status}"
-                                    ElementStyle="{StaticResource ColumnElementStyle}" />
-                <DataGridTextColumn Width="80"
-                                    Binding="{Binding Viewers}"
-                                    ElementStyle="{StaticResource ColumnElementStyle}" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <ContentPresenter Content="{Binding CurrentViewModel}" />
     </DockPanel>
 </Window>

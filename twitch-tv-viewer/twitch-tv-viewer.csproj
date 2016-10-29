@@ -75,11 +75,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Result.cs" />
+    <Compile Include="NotificationMessage.cs" />
     <Compile Include="ViewModels\Components\ChannelsDisplayViewModel.cs" />
+    <Compile Include="ViewModels\Components\MessageDisplayViewModel.cs" />
+    <Compile Include="Views\Components\MessageDisplay.xaml.cs">
+      <DependentUpon>MessageDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Components\ChannelsDisplay.xaml.cs">
       <DependentUpon>ChannelsDisplay.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Components\MessageDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
