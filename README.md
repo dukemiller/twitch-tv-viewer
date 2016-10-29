@@ -5,6 +5,8 @@ A semi light-weight, retro-looking display to track if twitch streamers are onli
 \- Track streamers to see if they're online with simple management options (add/delete)  
 \- Double click their username to  start their stream in livestreamer interfaced through whatever your default media player is (usually VLC)  
 \- Right click them to get options (currently, only open their twitch chat in your browser)  
+  
+Shortcuts: A (Add), D (Prompt delete selected), E (Edit), Enter (accept menu / start selected stream), Escape (close popup window), R (refresh window)  
 
 ---  
 
