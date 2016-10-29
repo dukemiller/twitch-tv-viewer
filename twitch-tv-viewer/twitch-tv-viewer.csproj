@@ -84,6 +84,7 @@
     <Compile Include="Result.cs" />
     <Compile Include="NotificationMessage.cs" />
     <Compile Include="ViewModels\Components\ChannelsDisplayViewModel.cs" />
+    <Compile Include="ViewModels\EditViewModel.cs" />
     <Compile Include="ViewModels\Components\MessageDisplayViewModel.cs" />
     <Compile Include="Views\Components\MessageDisplay.xaml.cs">
       <DependentUpon>MessageDisplay.xaml</DependentUpon>
