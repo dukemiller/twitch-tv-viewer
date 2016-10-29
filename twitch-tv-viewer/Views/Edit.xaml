@@ -27,6 +27,7 @@
                      HorizontalContentAlignment="Left"
                      VerticalContentAlignment="Top"
                      local:FocusExtension.IsFocused="True"
+                     PreviewKeyDown="OnPreviewKeyDown"
                      PreviewTextInput="OnPreviewTextInput"
                      Text="{Binding Usernames,
                                     UpdateSourceTrigger=PropertyChanged}"

@@ -2,9 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:twitch_tv_viewer"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:twitch_tv_viewer.ViewModels"
-        xmlns:local="clr-namespace:twitch_tv_viewer"
         Title="Add"
         d:DataContext="{d:DesignInstance viewModels:AddViewModel}"
         Style="{StaticResource PopupWindow}"
@@ -17,7 +17,11 @@
     <Border>
         <StackPanel Style="{StaticResource PopupStackPanel}">
             <Label>Enter the name to add:</Label>
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" local:FocusExtension.IsFocused="True"  />
+            <TextBox local:FocusExtension.IsFocused="True"
+                     PreviewKeyDown="OnPreviewKeyDown"
+                     PreviewTextInput="OnPreviewTextInput"
+                     Text="{Binding Name,
+                                    UpdateSourceTrigger=PropertyChanged}" />
             <StackPanel>
                 <Button Command="{Binding CancelCommand}">Cancel</Button>
                 <Button Command="{Binding ConfirmCommand}">Confirm</Button>
