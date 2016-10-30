@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using GalaSoft.MvvmLight;
@@ -87,7 +88,19 @@ namespace twitch_tv_viewer.ViewModels.Components
                 {
                     Message = $"Opening stream for {SelectedChannel.Name} ..."
                 });
-                await _twitchService.PlayVideo(SelectedChannel);
+
+                var video = await _twitchService.PlayVideo(SelectedChannel);
+                var information = Regex.Split(video, "\n");
+
+                // Handle unique butterfly streams that don't have a "source" quality
+                if (information.Any(line => line.Contains("Available streams: ")) 
+                    && information.Any(line => line.StartsWith("error: ")))
+                {
+                    var streams = information.First(line => line.Contains("Available streams: "));
+                    var resolutionLine = Regex.Split(streams, ": ")[1];
+                    var resolutions = Regex.Split(resolutionLine, ", ").TakeWhile(s => s.Any(char.IsNumber));
+                    await _twitchService.PlayVideo(SelectedChannel, resolutions.Last());
+                }
             }
         }
 
