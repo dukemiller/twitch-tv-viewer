@@ -29,7 +29,7 @@ namespace twitch_tv_viewer.ViewModels
         private void Confirm()
         {
             var usernames = Regex
-                .Split(Regex.Replace(Usernames.TrimEnd(','), @"\s+", @" "), ", ")
+                .Split(Regex.Replace(Usernames.TrimEnd(','), @"\s+", @""), ",")
                 .Where(s => s.Length > 0);
             _user.SetUsernames(usernames);
             MessengerInstance.Send(new ResetMessage());

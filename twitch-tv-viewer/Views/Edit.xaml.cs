@@ -32,11 +32,20 @@ namespace twitch_tv_viewer.Views
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             var str = _editViewModel.Usernames;
-            var charBefore = str.Substring(str.Length - 2, 1);
-            var lastCharacter = str.Substring(str.Length-1, 1);
-            var isComma = lastCharacter.Equals(",");
-            if (e.Key == Key.Space && !isComma || e.Key == Key.OemComma && (isComma || charBefore.Equals(",")))
+
+            if (str.Length == 0 && (e.Key == Key.OemComma || e.Key == Key.Space))
                 e.Handled = true;
+
+            else if (str.Length >= 1)
+            {
+                var previousIsComma = str.Skip(str.Length - 1).First().Equals(',');
+                var previousIsSpace = str.Skip(str.Length - 1).First().Equals(' ');
+
+                if (!previousIsComma && e.Key == Key.Space  ||
+                    (previousIsSpace || previousIsComma) && e.Key == Key.OemComma)
+                    e.Handled = true;
+            }
+
             base.OnPreviewKeyDown(e);
         }
     }
