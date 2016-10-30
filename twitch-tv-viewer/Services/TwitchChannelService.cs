@@ -10,12 +10,12 @@ namespace twitch_tv_viewer.Services
 {
     public class TwitchChannelService : ITwitchChannelService
     {
-        public async Task<string> PlayVideo(TwitchChannel channel)
+        public async Task<string> PlayVideo(TwitchChannel channel, string quality)
         {
             var startInfo = new ProcessStartInfo
             {
                 FileName = "livestreamer",
-                Arguments = $"--http-query-param client_id=spyiu9jqdnfjtwv6l1xjk5zgt8qb91l twitch.tv/{channel.Name} source",
+                Arguments = $"--http-query-param client_id=spyiu9jqdnfjtwv6l1xjk5zgt8qb91l twitch.tv/{channel.Name} {quality}",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 CreateNoWindow = true
@@ -30,6 +30,8 @@ namespace twitch_tv_viewer.Services
 
             return await process.StandardOutput.ReadToEndAsync();
         }
+
+        public async Task<string> PlayVideo(TwitchChannel twitchChannel) => await PlayVideo(twitchChannel, "source");
 
         public void OpenChat(TwitchChannel channel)
         {
