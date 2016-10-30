@@ -78,7 +78,11 @@ namespace twitch_tv_viewer.ViewModels.Components
 
         private async void OnLoaded() => await Main();
 
-        private void Delete() => new Delete(SelectedChannel).ShowDialog();
+        private void Delete()
+        {
+            if (SelectedChannel != null)
+                new Delete(SelectedChannel).ShowDialog();
+        }
 
         private async void Click()
         {
