@@ -173,7 +173,6 @@
 
         <Style x:Key="PopupStackPanel" TargetType="StackPanel">
             <Setter Property="Background" Value="{StaticResource Background}" />
-            <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=Input}" />
             <Style.Resources>
                 <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
                     <Setter Property="Margin" Value="10" />
@@ -201,6 +200,8 @@
             <Setter Property="BorderBrush" Value="{StaticResource Border}" />
             <Setter Property="BorderThickness" Value="1" />
         </Style>
+
+        <!--  Window  -->
 
         <Style x:Key="PopupWindow" TargetType="Window">
             <Setter Property="Width" Value="300" />
