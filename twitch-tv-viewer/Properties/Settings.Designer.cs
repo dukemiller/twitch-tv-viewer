@@ -33,5 +33,17 @@ namespace twitch_tv_viewer.Properties {
                 this["Usernames"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Source")]
+        public string Quality {
+            get {
+                return ((string)(this["Quality"]));
+            }
+            set {
+                this["Quality"] = value;
+            }
+        }
     }
 }
