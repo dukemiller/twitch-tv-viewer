@@ -11,6 +11,7 @@ namespace twitch_tv_viewer.Views
         public Settings()
         {
             InitializeComponent();
+            DataContext = new SettingsViewModel { Close = Close };
         }
     }
 }

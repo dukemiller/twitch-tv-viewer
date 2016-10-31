@@ -3,17 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:twitch_tv_viewer.ViewModels"
         Title="Settings"
+        d:DataContext="{d:DesignInstance {x:Type viewModels:SettingsViewModel}}"
         Style="{StaticResource PopupWindow}"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
+    <Window.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CancelCommand}" />
+        <KeyBinding Key="Enter" Command="{Binding ApplyCommand}" />
+    </Window.InputBindings>
     <Border>
         <DockPanel>
             <StackPanel Margin="10"
                         HorizontalAlignment="Right"
                         DockPanel.Dock="Bottom"
                         Orientation="Horizontal">
-                <Button Content="Apply" />
+                <Button Command="{Binding ApplyCommand}" Content="Apply" />
             </StackPanel>
             <StackPanel>
                 <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
@@ -26,7 +32,10 @@
                               FontFamily="{StaticResource Font}"
                               FontSize="{StaticResource FontSize}"
                               Foreground="{StaticResource Text}"
-                              IsSynchronizedWithCurrentItem="True" />
+                              IsSynchronizedWithCurrentItem="True"
+                              ItemsSource="{Binding Items}"
+                              SelectedItem="{Binding Selected}"
+                              Style="{StaticResource RetroComboboxStyle}" />
                 </StackPanel>
             </StackPanel>
         </DockPanel>
