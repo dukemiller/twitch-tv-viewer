@@ -15,6 +15,7 @@
         <KeyBinding Key="A" Command="{Binding AddCommand}" />
         <KeyBinding Key="E" Command="{Binding EditCommand}" />
         <KeyBinding Key="R" Command="{Binding RefreshCommand}" />
+        <KeyBinding Key="S" Command="{Binding SettingsCommand}" />
     </Window.InputBindings>
     <DockPanel>
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
@@ -22,6 +23,7 @@
                 <Label Content="{Binding Notification, NotifyOnTargetUpdated=True}" Style="{StaticResource Notification}" />
             </StackPanel>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Command="{Binding SettingsCommand}" Content="Settings" />
                 <Button Command="{Binding AddCommand}" Content="Add" />
                 <Button Command="{Binding EditCommand}" Content="Edit" />
             </StackPanel>

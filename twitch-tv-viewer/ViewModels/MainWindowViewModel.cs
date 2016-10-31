@@ -29,6 +29,7 @@ namespace twitch_tv_viewer.ViewModels
             MessengerInstance.Register<NotificationMessage>(this, notification => Notification = notification.Message);
             MessengerInstance.Register<Result>(this, DisplayLogic);
 
+            SettingsCommand = new RelayCommand(OpenSettings);
             AddCommand = new RelayCommand(Add);
             EditCommand = new RelayCommand(Edit);
             RefreshCommand = new RelayCommand(Refresh);
@@ -69,6 +70,8 @@ namespace twitch_tv_viewer.ViewModels
 
         // 
 
+        public RelayCommand SettingsCommand { get; set; }
+
         public RelayCommand AddCommand { get; set; }
 
         public RelayCommand EditCommand { get; set; }
@@ -76,6 +79,8 @@ namespace twitch_tv_viewer.ViewModels
         public RelayCommand RefreshCommand { get; set; }
 
         // 
+
+        private static void OpenSettings() => new Settings().ShowDialog();
 
         private async void Refresh()
         {
