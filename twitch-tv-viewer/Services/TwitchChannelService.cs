@@ -5,11 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using twitch_tv_viewer.Models;
+using twitch_tv_viewer.Repositories;
 
 namespace twitch_tv_viewer.Services
 {
     public class TwitchChannelService : ITwitchChannelService
     {
+        public TwitchChannelService()
+        {
+            Settings = new SettingsRepository();
+        }
+
+        public ISettingsRepository Settings { get; set; }
+
         public async Task<string> PlayVideo(TwitchChannel channel, string quality)
         {
             var startInfo = new ProcessStartInfo
@@ -31,7 +39,7 @@ namespace twitch_tv_viewer.Services
             return await process.StandardOutput.ReadToEndAsync();
         }
 
-        public async Task<string> PlayVideo(TwitchChannel twitchChannel) => await PlayVideo(twitchChannel, "source");
+        public async Task<string> PlayVideo(TwitchChannel twitchChannel) => await PlayVideo(twitchChannel, Settings.Quality);
 
         public void OpenChat(TwitchChannel channel)
         {
