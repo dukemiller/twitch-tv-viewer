@@ -83,6 +83,7 @@
     <Compile Include="FocusExtension.cs" />
     <Compile Include="Repositories\ISettingsRepository.cs" />
     <Compile Include="Repositories\SettingsRepository.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Result.cs" />
     <Compile Include="NotificationMessage.cs" />
     <Compile Include="ViewModels\Components\ChannelsDisplayViewModel.cs" />
