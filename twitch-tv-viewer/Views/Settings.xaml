@@ -9,6 +9,13 @@
         Style="{StaticResource PopupWindow}"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\ComboboxStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CancelCommand}" />
         <KeyBinding Key="Enter" Command="{Binding ApplyCommand}" />
