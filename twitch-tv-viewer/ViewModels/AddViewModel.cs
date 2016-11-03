@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
@@ -8,7 +9,7 @@ namespace twitch_tv_viewer.ViewModels
 {
     internal sealed class AddViewModel : ViewModelBase
     {
-        private readonly UsernameRepository _users;
+        private readonly IUsernameRepository _users;
         private string _name;
 
         public AddViewModel()
@@ -33,9 +34,9 @@ namespace twitch_tv_viewer.ViewModels
 
         // 
 
-        public RelayCommand CancelCommand { get; private set; }
+        public ICommand CancelCommand { get; private set; }
 
-        public RelayCommand ConfirmCommand { get; private set; }
+        public ICommand ConfirmCommand { get; private set; }
 
         // 
 

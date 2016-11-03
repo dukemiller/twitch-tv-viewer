@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using twitch_tv_viewer.Repositories;
@@ -12,7 +13,7 @@ namespace twitch_tv_viewer.ViewModels
 
         private string _selected;
 
-        private readonly SettingsRepository _settings;
+        private readonly ISettingsRepository _settings;
 
         // 
 
@@ -49,9 +50,9 @@ namespace twitch_tv_viewer.ViewModels
             }
         }
 
-        public RelayCommand ApplyCommand { get; set; }
+        public ICommand ApplyCommand { get; set; }
 
-        public RelayCommand CancelCommand { get; set; }
+        public ICommand CancelCommand { get; set; }
 
         // 
 

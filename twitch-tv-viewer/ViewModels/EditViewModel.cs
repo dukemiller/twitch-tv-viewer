@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using twitch_tv_viewer.Repositories;
@@ -9,7 +10,7 @@ namespace twitch_tv_viewer.ViewModels
 {
     internal class EditViewModel : ViewModelBase
     {
-        private readonly UsernameRepository _user;
+        private readonly IUsernameRepository _user;
         private string _usernames;
 
         public EditViewModel()
@@ -20,9 +21,9 @@ namespace twitch_tv_viewer.ViewModels
             CancelCommand = new RelayCommand(Cancel);
         }
 
-        public RelayCommand ConfirmCommand { get; set; }
+        public ICommand ConfirmCommand { get; set; }
 
-        public RelayCommand CancelCommand { get; set; }
+        public ICommand CancelCommand { get; set; }
 
         public Action Close { private get; set; }
 

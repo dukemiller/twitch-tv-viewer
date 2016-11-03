@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using twitch_tv_viewer.ViewModels.Components;
@@ -70,13 +71,13 @@ namespace twitch_tv_viewer.ViewModels
 
         // 
 
-        public RelayCommand SettingsCommand { get; set; }
+        public ICommand SettingsCommand { get; set; }
 
-        public RelayCommand AddCommand { get; set; }
+        public ICommand AddCommand { get; set; }
 
-        public RelayCommand EditCommand { get; set; }
+        public ICommand EditCommand { get; set; }
 
-        public RelayCommand RefreshCommand { get; set; }
+        public ICommand RefreshCommand { get; set; }
 
         // 
 

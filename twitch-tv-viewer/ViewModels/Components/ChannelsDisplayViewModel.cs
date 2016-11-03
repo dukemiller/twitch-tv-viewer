@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
@@ -15,11 +16,11 @@ namespace twitch_tv_viewer.ViewModels.Components
 {
     internal class ChannelsDisplayViewModel : ViewModelBase
     {
-        private readonly TwitchChannelService _twitchService;
+        private readonly ITwitchChannelService _twitchService;
 
-        private readonly TwitchChannelRepository _twitch;
+        private readonly ITwitchChannelRepository _twitch;
 
-        private readonly UsernameRepository _user;
+        private readonly IUsernameRepository _user;
 
         private ObservableCollection<TwitchChannel> _channels;
 
@@ -64,17 +65,17 @@ namespace twitch_tv_viewer.ViewModels.Components
             }
         }
 
-        public RelayCommand WindowLoaded { get; set; }
+        public ICommand WindowLoaded { get; set; }
 
-        public RelayCommand DeleteCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
 
-        public RelayCommand ClickCommand { get; set; }
+        public ICommand ClickCommand { get; set; }
 
-        public RelayCommand OpenChatCommand { get; set; }
+        public ICommand OpenChatCommand { get; set; }
 
-        public RelayCommand CopyCommand { get; set; }
+        public ICommand CopyCommand { get; set; }
 
-        public RelayCommand AddCommand { get; set; }
+        public ICommand AddCommand { get; set; }
 
         private async void OnLoaded() => await Main();
 
