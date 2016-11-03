@@ -5,7 +5,21 @@
         public string Quality
         {
             get { return Properties.Settings.Default.Quality; }
-            set { Properties.Settings.Default.Quality = value; }
+            set
+            {
+                Properties.Settings.Default.Quality = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        public bool UserAlert
+        {
+            get { return Properties.Settings.Default.UserAlert; }
+            set
+            {
+                Properties.Settings.Default.UserAlert = value;
+                Properties.Settings.Default.Save();
+            }
         }
     }
 }

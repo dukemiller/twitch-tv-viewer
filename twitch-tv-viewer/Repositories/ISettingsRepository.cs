@@ -3,5 +3,6 @@
     public interface ISettingsRepository
     {
         string Quality { get; set; }
+        bool UserAlert { get; set; }
     }
 }
