@@ -84,6 +84,8 @@
     <Compile Include="FocusExtension.cs" />
     <Compile Include="Repositories\ISettingsRepository.cs" />
     <Compile Include="Repositories\SettingsRepository.cs" />
+    <Compile Include="Services\ISoundPlayerService.cs" />
+    <Compile Include="Services\SoundPlayerService.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Result.cs" />
     <Compile Include="NotificationMessage.cs" />
