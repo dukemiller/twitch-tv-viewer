@@ -8,5 +8,8 @@
     <Setting Name="Quality" Type="System.String" Scope="User">
       <Value Profile="(Default)">Source</Value>
     </Setting>
+    <Setting Name="UserAlert" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

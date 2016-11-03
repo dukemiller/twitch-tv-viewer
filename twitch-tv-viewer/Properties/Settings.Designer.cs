@@ -45,5 +45,17 @@ namespace twitch_tv_viewer.Properties {
                 this["Quality"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UserAlert {
+            get {
+                return ((bool)(this["UserAlert"]));
+            }
+            set {
+                this["UserAlert"] = value;
+            }
+        }
     }
 }
