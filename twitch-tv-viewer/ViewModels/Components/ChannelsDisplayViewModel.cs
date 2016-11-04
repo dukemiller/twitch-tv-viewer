@@ -144,11 +144,11 @@ namespace twitch_tv_viewer.ViewModels.Components
                     if (result.Any())
                     {
                         Channels = new ObservableCollection<TwitchChannel>(result);
-                        Messenger.Default.Send(new Result {Successful = true});
+                        MessengerInstance.Send(new Result {Successful = true});
                     }
 
                     else
-                        Messenger.Default.Send(new Result {Message = "No streamers online."});
+                        MessengerInstance.Send(new Result {Message = "No streamers online."});
 
                     if (Channels.Count != _lastCount && _lastCount != -1 && _settings.UserAlert)
                     {
@@ -171,7 +171,7 @@ namespace twitch_tv_viewer.ViewModels.Components
         {
             if (SelectedChannel != null)
             {
-                Messenger.Default.Send(new NotificationMessage
+                MessengerInstance.Send(new NotificationMessage
                 {
                     Message = $"Opening chat for {SelectedChannel.Name} ..."
                 });
