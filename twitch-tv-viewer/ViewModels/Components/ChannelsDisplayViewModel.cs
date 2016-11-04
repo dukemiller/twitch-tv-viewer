@@ -20,9 +20,15 @@ namespace twitch_tv_viewer.ViewModels.Components
 
         private readonly ITwitchChannelRepository _twitch;
 
+        private readonly ISoundPlayerService _soundPlayer;
+
         private readonly IUsernameRepository _user;
 
+        private readonly ISettingsRepository _settings;
+
         private ObservableCollection<TwitchChannel> _channels;
+        
+        private int _lastCount = -1;
 
         public int Counter { get; private set; }
 
@@ -31,8 +37,10 @@ namespace twitch_tv_viewer.ViewModels.Components
         public ChannelsDisplayViewModel()
         {
             _user = new UsernameRepository();
+            _settings = new SettingsRepository();
             _twitch = new TwitchChannelRepository(_user);
             _twitchService = new TwitchChannelService();
+            _soundPlayer = new SoundPlayerService();
 
             DeleteCommand = new RelayCommand(Delete);
             ClickCommand = new RelayCommand(Click);
@@ -141,6 +149,16 @@ namespace twitch_tv_viewer.ViewModels.Components
 
                     else
                         Messenger.Default.Send(new Result {Message = "No streamers online."});
+
+                    if (Channels.Count != _lastCount && _lastCount != -1 && _settings.UserAlert)
+                    {
+                        if (_lastCount > Channels.Count)
+                            _soundPlayer.PlayOfflineSound();
+                        else if (_lastCount < Channels.Count)
+                            _soundPlayer.PlayOnlineSound();
+                    }
+
+                    _lastCount = Channels.Count;
                 }
 
                 Counter = 0;
