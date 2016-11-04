@@ -44,6 +44,12 @@
                               SelectedItem="{Binding Selected}"
                               Style="{StaticResource RetroComboboxStyle}" />
                 </StackPanel>
+                <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                    <Label Margin="5">User notice sound:</Label>
+                    <CheckBox VerticalAlignment="Center"
+                              IsChecked="{Binding Checked}"
+                              BorderBrush="{StaticResource Border}"/>
+                </StackPanel>
             </StackPanel>
         </DockPanel>
     </Border>
