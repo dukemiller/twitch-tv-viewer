@@ -15,6 +15,8 @@ namespace twitch_tv_viewer.ViewModels
 
         private readonly ISettingsRepository _settings;
 
+        private bool _checked;
+
         // 
 
         public SettingsViewModel()
@@ -22,6 +24,7 @@ namespace twitch_tv_viewer.ViewModels
             _settings = new SettingsRepository();
             Items = new ObservableCollection<string> {"Source", "Low"};
             Selected = _settings.Quality;
+            Checked = _settings.UserAlert;
             ApplyCommand = new RelayCommand(Apply);
             CancelCommand = new RelayCommand(Cancel);
         }
@@ -50,6 +53,16 @@ namespace twitch_tv_viewer.ViewModels
             }
         }
 
+        public bool Checked
+        {
+            get { return _checked; }
+            set
+            {
+                _checked = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public ICommand ApplyCommand { get; set; }
 
         public ICommand CancelCommand { get; set; }
@@ -60,6 +73,7 @@ namespace twitch_tv_viewer.ViewModels
 
         private void Apply()
         {
+            _settings.UserAlert = Checked;
             _settings.Quality = Selected;
             Close();
         }
