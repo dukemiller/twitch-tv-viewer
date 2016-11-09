@@ -8,6 +8,12 @@
         Width="800"
         Height="200"
         mc:Ignorable="d">
+    <Window.Resources>
+        <Style x:Key="Separator" TargetType="Border" BasedOn="{StaticResource {x:Type Border}}">
+            <Setter Property="Opacity" Value="0.4"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+    </Window.Resources>
     <Window.DataContext>
         <viewModels:MainWindowViewModel />
     </Window.DataContext>
@@ -25,7 +31,9 @@
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                 <Label>Sort by:</Label>
                 <Button Width="80" Command="{Binding SortCommand}" Content="{Binding SortName}" />
+                <Border Style="{StaticResource Separator}"/>
                 <Button Command="{Binding SettingsCommand}" Content="Settings" />
+                <Border Style="{StaticResource Separator}" />
                 <Button Command="{Binding AddCommand}" Content="Add" />
                 <Button Command="{Binding EditCommand}" Content="Edit" />
             </StackPanel>
