@@ -23,6 +23,8 @@
                 <Label Content="{Binding Notification, NotifyOnTargetUpdated=True}" Style="{StaticResource Notification}" />
             </StackPanel>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Label>Sort by:</Label>
+                <Button Width="80" Command="{Binding SortCommand}" Content="{Binding SortName}" />
                 <Button Command="{Binding SettingsCommand}" Content="Settings" />
                 <Button Command="{Binding AddCommand}" Content="Add" />
                 <Button Command="{Binding EditCommand}" Content="Edit" />
