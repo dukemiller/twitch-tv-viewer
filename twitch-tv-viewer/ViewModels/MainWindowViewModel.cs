@@ -1,7 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using twitch_tv_viewer.Models;
+using twitch_tv_viewer.Repositories;
 using twitch_tv_viewer.ViewModels.Components;
 using twitch_tv_viewer.Views;
 
@@ -17,11 +21,15 @@ namespace twitch_tv_viewer.ViewModels
 
         private string _notification;
 
+        private ISettingsRepository _settings;
+
         // 
 
         public MainWindowViewModel()
         {
             Notification = "Loading ...";
+
+            _settings = new SettingsRepository();
             
             _messageDisplay = new MessageDisplayViewModel();
             _channelsDisplay = new ChannelsDisplayViewModel();
@@ -34,6 +42,7 @@ namespace twitch_tv_viewer.ViewModels
             AddCommand = new RelayCommand(Add);
             EditCommand = new RelayCommand(Edit);
             RefreshCommand = new RelayCommand(Refresh);
+            SortCommand = new RelayCommand(Sort);
         }
 
         // 
@@ -69,6 +78,8 @@ namespace twitch_tv_viewer.ViewModels
             }
         }
 
+        public string SortName => _settings.SortName;
+
         // 
 
         public ICommand SettingsCommand { get; set; }
@@ -78,6 +89,8 @@ namespace twitch_tv_viewer.ViewModels
         public ICommand EditCommand { get; set; }
 
         public ICommand RefreshCommand { get; set; }
+
+        public ICommand SortCommand { get; set; }
 
         // 
 
@@ -92,6 +105,13 @@ namespace twitch_tv_viewer.ViewModels
                 await Task.Delay(2000);
                 MessengerInstance.Send(new ResetMessage());
             }
+        }
+
+        private void Sort()
+        {
+            _settings.SortBy = (_settings.SortBy + 1) % 4;
+            RaisePropertyChanged(nameof(_settings.SortName));
+            _channelsDisplay.Sort(_settings.SortName);
         }
 
         private static void Add() => new Add().ShowDialog();
