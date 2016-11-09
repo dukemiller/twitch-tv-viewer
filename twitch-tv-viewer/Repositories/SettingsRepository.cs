@@ -1,4 +1,7 @@
-﻿namespace twitch_tv_viewer.Repositories
+﻿using System.ComponentModel;
+using twitch_tv_viewer.Models;
+
+namespace twitch_tv_viewer.Repositories
 {
     internal class SettingsRepository: ISettingsRepository
     {
@@ -21,5 +24,17 @@
                 Properties.Settings.Default.Save();
             }
         }
+
+        public int SortBy
+        {
+            get { return Properties.Settings.Default.SortBy; }
+            set
+            {
+                Properties.Settings.Default.SortBy = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        public string SortName => TypeDescriptor.GetProperties(typeof(TwitchChannel))[SortBy].Name;
     }
 }

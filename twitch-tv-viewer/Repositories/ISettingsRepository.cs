@@ -4,5 +4,7 @@
     {
         string Quality { get; set; }
         bool UserAlert { get; set; }
+        int SortBy { get; set; }
+        string SortName { get; }
     }
 }
