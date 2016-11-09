@@ -57,5 +57,17 @@ namespace twitch_tv_viewer.Properties {
                 this["UserAlert"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SortBy {
+            get {
+                return ((int)(this["SortBy"]));
+            }
+            set {
+                this["SortBy"] = value;
+            }
+        }
     }
 }
