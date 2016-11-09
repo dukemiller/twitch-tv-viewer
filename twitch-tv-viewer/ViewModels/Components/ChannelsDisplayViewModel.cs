@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -85,6 +86,21 @@ namespace twitch_tv_viewer.ViewModels.Components
 
         public ICommand AddCommand { get; set; }
 
+        //
+
+        public void Sort(string propertyName)
+        {
+            var propertyDescriptor = TypeDescriptor
+                    .GetProperties(typeof(TwitchChannel))
+                    .Find(propertyName, true);
+
+            // Ideally this would just be for any numeric type
+            if (propertyName.Equals("Viewers"))
+                Channels = new ObservableCollection<TwitchChannel>(Channels.OrderByDescending(c => c.Viewers.All(char.IsNumber) ? int.Parse(c.Viewers) : 0));
+            else
+                Channels = new ObservableCollection<TwitchChannel>(Channels.OrderBy(c => propertyDescriptor.GetValue(c)));
+        }
+
         private async void OnLoaded() => await Main();
 
         private void Delete()
@@ -144,6 +160,7 @@ namespace twitch_tv_viewer.ViewModels.Components
                     if (result.Any())
                     {
                         Channels = new ObservableCollection<TwitchChannel>(result);
+                        Sort(_settings.SortName);
                         MessengerInstance.Send(new Result {Successful = true});
                     }
 

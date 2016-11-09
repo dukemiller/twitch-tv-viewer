@@ -81,7 +81,7 @@ namespace twitch_tv_viewer.Repositories
             var content = await response.Content.ReadAsStringAsync();
             var json = (JObject) await Task.Factory.StartNew(() => JsonConvert.DeserializeObject(content));
             var streamers = json["streams"].Select(s => new TwitchChannel(s));
-            return streamers.OrderBy(c => c).ToList();
+            return streamers.ToList();
         }
 
         private static HttpRequestMessage CreateRequest(string streamUrl)
