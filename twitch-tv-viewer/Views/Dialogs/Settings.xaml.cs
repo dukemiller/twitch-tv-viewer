@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using GalaSoft.MvvmLight.Ioc;
 using twitch_tv_viewer.ViewModels;
 using twitch_tv_viewer.ViewModels.Dialogs;
 
@@ -12,7 +13,9 @@ namespace twitch_tv_viewer.Views.Dialogs
         public Settings()
         {
             InitializeComponent();
-            DataContext = new SettingsViewModel { Close = Close };
+            var viewmodel = SimpleIoc.Default.GetInstance<SettingsViewModel>();
+            viewmodel.Close = Close;
+            DataContext = viewmodel;
         }
     }
 }

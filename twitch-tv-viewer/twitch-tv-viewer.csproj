@@ -84,6 +84,7 @@
     <Compile Include="Classes\Xaml\FocusExtension.cs" />
     <Compile Include="Repositories\Interfaces\ISettingsRepository.cs" />
     <Compile Include="Repositories\SettingsRepository.cs" />
+    <Compile Include="ViewModelLocator.cs" />
     <Compile Include="Services\Interfaces\ISoundPlayerService.cs" />
     <Compile Include="Services\SoundPlayerService.cs" />
     <Compile Include="ViewModels\Dialogs\SettingsViewModel.cs" />

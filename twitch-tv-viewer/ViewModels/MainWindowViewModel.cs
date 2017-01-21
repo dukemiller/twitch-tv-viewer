@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Ioc;
 using twitch_tv_viewer.Models;
 using twitch_tv_viewer.Repositories;
 using twitch_tv_viewer.ViewModels.Components;
@@ -14,7 +15,7 @@ using Settings = twitch_tv_viewer.Views.Dialogs.Settings;
 
 namespace twitch_tv_viewer.ViewModels
 {
-    internal sealed class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : ViewModelBase
     {
         private readonly MessageDisplayViewModel _messageDisplay;
 
@@ -28,14 +29,13 @@ namespace twitch_tv_viewer.ViewModels
 
         // 
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(ISettingsRepository settings)
         {
             Notification = "Loading ...";
 
-            _settings = new SettingsRepository();
-            
-            _messageDisplay = new MessageDisplayViewModel();
-            _channelsDisplay = new ChannelsDisplayViewModel();
+            _settings = settings;
+            _messageDisplay = SimpleIoc.Default.GetInstance<MessageDisplayViewModel>();
+            _channelsDisplay = SimpleIoc.Default.GetInstance<ChannelsDisplayViewModel>();
             CurrentViewModel = _channelsDisplay;
 
             MessengerInstance.Register<NotificationMessage>(this, notification => Notification = notification.Message);
@@ -85,15 +85,15 @@ namespace twitch_tv_viewer.ViewModels
 
         // 
 
-        public ICommand SettingsCommand { get; set; }
+        public RelayCommand SettingsCommand { get; set; }
 
-        public ICommand AddCommand { get; set; }
+        public RelayCommand AddCommand { get; set; }
 
-        public ICommand EditCommand { get; set; }
+        public RelayCommand EditCommand { get; set; }
 
-        public ICommand RefreshCommand { get; set; }
+        public RelayCommand RefreshCommand { get; set; }
 
-        public ICommand SortCommand { get; set; }
+        public RelayCommand SortCommand { get; set; }
 
         // 
 

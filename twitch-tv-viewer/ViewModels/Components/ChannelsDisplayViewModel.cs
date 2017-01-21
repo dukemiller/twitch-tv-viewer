@@ -33,13 +33,14 @@ namespace twitch_tv_viewer.ViewModels.Components
 
         // 
 
-        public ChannelsDisplayViewModel()
+        public ChannelsDisplayViewModel(ISettingsRepository settings, ISoundPlayerService sound,
+            ITwitchChannelRepository twitchRepository, ITwitchChannelService twitchSevice, IUsernameRepository usernames)
         {
-            _user = new UsernameRepository();
-            _settings = new SettingsRepository();
-            _twitch = new TwitchChannelRepository(_user);
-            _twitchService = new TwitchChannelService();
-            _soundPlayer = new SoundPlayerService();
+            _settings = settings;
+            _soundPlayer = sound;
+            _twitch = twitchRepository;
+            _twitchService = twitchSevice;
+            _user = usernames;
 
             DeleteCommand = new RelayCommand(Delete);
             ClickCommand = new RelayCommand(Click);

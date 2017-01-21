@@ -19,9 +19,9 @@ namespace twitch_tv_viewer.ViewModels.Dialogs
 
         // 
 
-        public SettingsViewModel()
+        public SettingsViewModel(ISettingsRepository settings)
         {
-            _settings = new SettingsRepository();
+            _settings = settings;
             Items = new ObservableCollection<string> {"Source", "Low"};
             Selected = _settings.Quality;
             Checked = _settings.UserAlert;

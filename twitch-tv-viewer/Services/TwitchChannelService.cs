@@ -11,12 +11,12 @@ namespace twitch_tv_viewer.Services
 {
     public class TwitchChannelService : ITwitchChannelService
     {
-        public TwitchChannelService()
+        public TwitchChannelService(ISettingsRepository settings)
         {
-            Settings = new SettingsRepository();
+            Settings = settings;
         }
 
-        public ISettingsRepository Settings { get; set; }
+        private ISettingsRepository Settings { get; }
 
         public async Task<string> PlayVideo(TwitchChannel channel, string quality)
         {

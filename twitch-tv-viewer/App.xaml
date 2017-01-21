@@ -4,10 +4,13 @@
              xmlns:components="clr-namespace:twitch_tv_viewer.Views.Components"
              xmlns:componentsVm="clr-namespace:twitch_tv_viewer.ViewModels.Components"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:twitchTvViewer="clr-namespace:twitch_tv_viewer"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
 
         <!--  Data templates  -->
+
+        <twitchTvViewer:ViewModelLocator x:Key="Locator" />
 
         <DataTemplate DataType="{x:Type componentsVm:ChannelsDisplayViewModel}">
             <components:ChannelsDisplay DataContext="{Binding}" />
