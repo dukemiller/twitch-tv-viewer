@@ -153,29 +153,37 @@ namespace twitch_tv_viewer.ViewModels.Components
 
                 else
                 {
-                    var result = await _twitch.GetChannels();
-
-                    MessengerInstance.Send(new NotificationMessage());
-
-                    if (result.Any())
+                    try
                     {
-                        Channels = new ObservableCollection<TwitchChannel>(result);
-                        Sort(_settings.SortName);
-                        MessengerInstance.Send(new Result {Successful = true});
+                        var result = await _twitch.GetChannels();
+
+                        MessengerInstance.Send(new NotificationMessage());
+
+                        if (result.Any())
+                        {
+                            Channels = new ObservableCollection<TwitchChannel>(result);
+                            Sort(_settings.SortName);
+                            MessengerInstance.Send(new Result {Successful = true});
+                        }
+
+                        else
+                            MessengerInstance.Send(new Result {Message = "No streamers online."});
+
+                        if (Channels.Count != _lastCount && _lastCount != -1 && _settings.UserAlert)
+                        {
+                            if (_lastCount > Channels.Count)
+                                _soundPlayer.PlayOfflineSound();
+                            else if (_lastCount < Channels.Count)
+                                _soundPlayer.PlayOnlineSound();
+                        }
+
+                        _lastCount = Channels.Count;
                     }
 
-                    else
-                        MessengerInstance.Send(new Result {Message = "No streamers online."});
-
-                    if (Channels.Count != _lastCount && _lastCount != -1 && _settings.UserAlert)
+                    catch
                     {
-                        if (_lastCount > Channels.Count)
-                            _soundPlayer.PlayOfflineSound();
-                        else if (_lastCount < Channels.Count)
-                            _soundPlayer.PlayOnlineSound();
+                        MessengerInstance.Send(new Result { Message = "Connectivity issue." });
                     }
-
-                    _lastCount = Channels.Count;
                 }
 
                 Counter = 0;
