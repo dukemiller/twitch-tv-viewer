@@ -17,23 +17,19 @@ namespace twitch_tv_viewer.ViewModels.Components
 {
     internal class ChannelsDisplayViewModel : ViewModelBase
     {
-        private readonly ITwitchChannelService _twitchService;
-
-        private readonly ITwitchChannelRepository _twitch;
-
+        private readonly ISettingsRepository _settings;
         private readonly ISoundPlayerService _soundPlayer;
-
+        private readonly ITwitchChannelRepository _twitch;
+        private readonly ITwitchChannelService _twitchService;
         private readonly IUsernameRepository _user;
 
-        private readonly ISettingsRepository _settings;
-
         private ObservableCollection<TwitchChannel> _channels;
-        
+
         private int _lastCount = -1;
 
-        public int Counter { get; private set; }
-
         private TwitchChannel _selectedChannel;
+
+        // 
 
         public ChannelsDisplayViewModel()
         {
@@ -53,6 +49,10 @@ namespace twitch_tv_viewer.ViewModels.Components
             // on any sent message, set the counter to 30 to instantly refresh
             Messenger.Default.Register<ResetMessage>(this, message => Counter = 30);
         }
+
+        // 
+
+        public int Counter { get; private set; }
 
         public ObservableCollection<TwitchChannel> Channels
         {
@@ -91,12 +91,14 @@ namespace twitch_tv_viewer.ViewModels.Components
         public void Sort(string propertyName)
         {
             var propertyDescriptor = TypeDescriptor
-                    .GetProperties(typeof(TwitchChannel))
-                    .Find(propertyName, true);
+                .GetProperties(typeof(TwitchChannel))
+                .Find(propertyName, true);
 
             // Ideally this would just be for any numeric type
             if (propertyName.Equals("Viewers"))
-                Channels = new ObservableCollection<TwitchChannel>(Channels.OrderByDescending(c => c.Viewers.All(char.IsNumber) ? int.Parse(c.Viewers) : 0));
+                Channels =
+                    new ObservableCollection<TwitchChannel>(
+                        Channels.OrderByDescending(c => c.Viewers.All(char.IsNumber) ? int.Parse(c.Viewers) : 0));
             else
                 Channels = new ObservableCollection<TwitchChannel>(Channels.OrderBy(c => propertyDescriptor.GetValue(c)));
         }
@@ -122,7 +124,7 @@ namespace twitch_tv_viewer.ViewModels.Components
                 var information = Regex.Split(video, "\n");
 
                 // Handle unique butterfly streams that don't have a "source" quality
-                if (information.Any(line => line.Contains("Available streams: ")) 
+                if (information.Any(line => line.Contains("Available streams: "))
                     && information.Any(line => line.StartsWith("error: ")))
                 {
                     var streams = information.First(line => line.Contains("Available streams: "));
@@ -152,7 +154,6 @@ namespace twitch_tv_viewer.ViewModels.Components
                     Messenger.Default.Send(new Result {Message = "Add some twitch usernames."});
 
                 else
-                {
                     try
                     {
                         var result = await _twitch.GetChannels();
@@ -167,26 +168,26 @@ namespace twitch_tv_viewer.ViewModels.Components
                         }
 
                         else
+                        {
                             MessengerInstance.Send(new Result {Message = "No streamers online."});
+                        }
 
                         if (Channels.Count != _lastCount && _lastCount != -1 && _settings.UserAlert)
-                        {
                             if (_lastCount > Channels.Count)
                                 _soundPlayer.PlayOfflineSound();
                             else if (_lastCount < Channels.Count)
                                 _soundPlayer.PlayOnlineSound();
-                        }
 
                         _lastCount = Channels.Count;
                     }
 
                     catch
                     {
-                        MessengerInstance.Send(new Result { Message = "Connectivity issue." });
+                        MessengerInstance.Send(new Result {Message = "Connectivity issue."});
                     }
-                }
 
                 Counter = 0;
+
                 while (Counter++ < 30)
                     await Task.Delay(1000);
             }

@@ -21,7 +21,7 @@ namespace twitch_tv_viewer.ViewModels
 
         private string _notification;
 
-        private ISettingsRepository _settings;
+        private readonly ISettingsRepository _settings;
 
         // 
 
