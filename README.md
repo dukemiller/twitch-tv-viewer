@@ -1,9 +1,9 @@
 # twitch-tv-viewer
-A semi light-weight, retro-looking display to track if twitch streamers are online and start their stream via livestreamer. That is to say, **to watch streams from this program [livestreamer](http://docs.livestreamer.io/) is required**.
+A semi light-weight, retro-looking display to track if twitch streamers are online and start their stream via streamlink. That is to say, **to watch streams from this program [streamlink](https://streamlink.github.io/) is required**.
 
 **Features**  
 \- Track streamers to see if they're online with simple management options (add/delete)  
-\- Double click their username to  start their stream in livestreamer interfaced through whatever your default media player is (usually VLC)  
+\- Double click their username to  start their stream in streamlink interfaced through whatever your default media player is (usually VLC)  
 \- Right click them to get options (currently, only open their twitch chat in your browser)  
   
 Shortcuts: A (Add), D (Prompt delete selected), E (Edit), Enter (accept menu / start selected stream), Escape (close popup window), R (refresh window)  
