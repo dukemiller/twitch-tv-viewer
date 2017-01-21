@@ -12,6 +12,8 @@ using twitch_tv_viewer.Models;
 using twitch_tv_viewer.Repositories;
 using twitch_tv_viewer.Services;
 using twitch_tv_viewer.Views;
+using Add = twitch_tv_viewer.Views.Dialogs.Add;
+using Delete = twitch_tv_viewer.Views.Dialogs.Delete;
 
 namespace twitch_tv_viewer.ViewModels.Components
 {

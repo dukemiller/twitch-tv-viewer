@@ -8,6 +8,9 @@ using twitch_tv_viewer.Models;
 using twitch_tv_viewer.Repositories;
 using twitch_tv_viewer.ViewModels.Components;
 using twitch_tv_viewer.Views;
+using Add = twitch_tv_viewer.Views.Dialogs.Add;
+using Edit = twitch_tv_viewer.Views.Dialogs.Edit;
+using Settings = twitch_tv_viewer.Views.Dialogs.Settings;
 
 namespace twitch_tv_viewer.ViewModels
 {

@@ -5,7 +5,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using twitch_tv_viewer.Repositories;
 
-namespace twitch_tv_viewer.ViewModels
+namespace twitch_tv_viewer.ViewModels.Dialogs
 {
     internal sealed class AddViewModel : ViewModelBase
     {

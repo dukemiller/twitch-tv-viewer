@@ -86,11 +86,11 @@
     <Compile Include="Repositories\SettingsRepository.cs" />
     <Compile Include="Services\Interfaces\ISoundPlayerService.cs" />
     <Compile Include="Services\SoundPlayerService.cs" />
-    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\SettingsViewModel.cs" />
     <Compile Include="Classes\Result.cs" />
     <Compile Include="Classes\NotificationMessage.cs" />
     <Compile Include="ViewModels\Components\ChannelsDisplayViewModel.cs" />
-    <Compile Include="ViewModels\EditViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\EditViewModel.cs" />
     <Compile Include="ViewModels\Components\MessageDisplayViewModel.cs" />
     <Compile Include="Views\Components\MessageDisplay.xaml.cs">
       <DependentUpon>MessageDisplay.xaml</DependentUpon>
@@ -98,7 +98,7 @@
     <Compile Include="Views\Components\ChannelsDisplay.xaml.cs">
       <DependentUpon>ChannelsDisplay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Settings.xaml.cs">
+    <Compile Include="Views\Dialogs\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Page Include="ComboboxStyle.xaml">
@@ -109,15 +109,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Add.xaml">
+    <Page Include="Views\Dialogs\Add.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Delete.xaml">
+    <Page Include="Views\Dialogs\Delete.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Edit.xaml">
+    <Page Include="Views\Dialogs\Edit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -136,17 +136,17 @@
     <Compile Include="Classes\ResetMessage.cs" />
     <Compile Include="Services\Interfaces\ITwitchChannelService.cs" />
     <Compile Include="Services\TwitchChannelService.cs" />
-    <Compile Include="ViewModels\AddViewModel.cs" />
-    <Compile Include="ViewModels\DeleteViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\AddViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DeleteViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Models\TwitchChannel.cs" />
-    <Compile Include="Views\Add.xaml.cs">
+    <Compile Include="Views\Dialogs\Add.xaml.cs">
       <DependentUpon>Add.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Delete.xaml.cs">
+    <Compile Include="Views\Dialogs\Delete.xaml.cs">
       <DependentUpon>Delete.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Edit.xaml.cs">
+    <Compile Include="Views\Dialogs\Edit.xaml.cs">
       <DependentUpon>Edit.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
@@ -157,7 +157,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Settings.xaml">
+    <Page Include="Views\Dialogs\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

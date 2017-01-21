@@ -5,7 +5,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using twitch_tv_viewer.Repositories;
 
-namespace twitch_tv_viewer.ViewModels
+namespace twitch_tv_viewer.ViewModels.Dialogs
 {
     internal class SettingsViewModel : ViewModelBase
     {

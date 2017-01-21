@@ -1,8 +1,9 @@
 ﻿using System.Windows;
 using twitch_tv_viewer.Models;
 using twitch_tv_viewer.ViewModels;
+using twitch_tv_viewer.ViewModels.Dialogs;
 
-namespace twitch_tv_viewer.Views
+namespace twitch_tv_viewer.Views.Dialogs
 {
     /// <summary>
     ///     Interaction logic for Delete.xaml

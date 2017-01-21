@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using twitch_tv_viewer.ViewModels;
+using twitch_tv_viewer.ViewModels.Dialogs;
 
-namespace twitch_tv_viewer.Views
+namespace twitch_tv_viewer.Views.Dialogs
 {
     /// <summary>
     ///     Interaction logic for Edit.xaml
