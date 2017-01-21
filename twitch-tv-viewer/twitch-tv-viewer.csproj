@@ -82,9 +82,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="FocusExtension.cs" />
-    <Compile Include="Repositories\ISettingsRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ISettingsRepository.cs" />
     <Compile Include="Repositories\SettingsRepository.cs" />
-    <Compile Include="Services\ISoundPlayerService.cs" />
+    <Compile Include="Services\Interfaces\ISoundPlayerService.cs" />
     <Compile Include="Services\SoundPlayerService.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Result.cs" />
@@ -129,12 +129,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Repositories\ITwitchChannelRepository.cs" />
-    <Compile Include="Repositories\IUsernameRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ITwitchChannelRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IUsernameRepository.cs" />
     <Compile Include="Repositories\TwitchChannelRepository.cs" />
     <Compile Include="Repositories\UsernameRepository.cs" />
     <Compile Include="ResetMessage.cs" />
-    <Compile Include="Services\ITwitchChannelService.cs" />
+    <Compile Include="Services\Interfaces\ITwitchChannelService.cs" />
     <Compile Include="Services\TwitchChannelService.cs" />
     <Compile Include="ViewModels\AddViewModel.cs" />
     <Compile Include="ViewModels\DeleteViewModel.cs" />

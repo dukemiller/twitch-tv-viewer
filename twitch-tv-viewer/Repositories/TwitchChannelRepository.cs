@@ -16,7 +16,7 @@ namespace twitch_tv_viewer.Repositories
 
         public TwitchChannelRepository(IUsernameRepository usernameRepository)
         {
-            _client = new HttpClient();
+            _client = new HttpClient {Timeout = new TimeSpan(0, 0, 3)};
             _usernames = usernameRepository;
         }
 
