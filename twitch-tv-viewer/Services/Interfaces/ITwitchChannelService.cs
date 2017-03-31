@@ -8,5 +8,6 @@ namespace twitch_tv_viewer.Services.Interfaces
         Task<string> PlayVideo(TwitchChannel channel);
         Task<string> PlayVideo(TwitchChannel channel, string quality);
         void OpenChat(TwitchChannel twitchChannel);
+        void OpenStream(TwitchChannel channel);
     }
 }

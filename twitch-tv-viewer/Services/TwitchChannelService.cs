@@ -36,5 +36,7 @@ namespace twitch_tv_viewer.Services
         public async Task<string> PlayVideo(TwitchChannel channel) => await PlayVideo(channel, _settings.Quality);
 
         public void OpenChat(TwitchChannel channel) => Process.Start($"http://twitch.tv/{channel.Name}/chat?popout=");
+
+        public void OpenStream(TwitchChannel channel) => Process.Start($"http://twitch.tv/{channel.Name}");
     }
 }
