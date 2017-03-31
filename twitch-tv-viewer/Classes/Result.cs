@@ -1,4 +1,4 @@
-﻿namespace twitch_tv_viewer
+﻿namespace twitch_tv_viewer.Classes
 {
     internal class Result
     {
@@ -7,6 +7,5 @@
         public bool Error { get; set; }
 
         public string Message { get; set; } = "";
-        
     }
 }

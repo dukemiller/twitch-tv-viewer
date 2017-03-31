@@ -3,6 +3,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
+using twitch_tv_viewer.Classes;
 using twitch_tv_viewer.Repositories;
 
 namespace twitch_tv_viewer.ViewModels.Dialogs

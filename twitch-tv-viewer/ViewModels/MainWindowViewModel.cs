@@ -1,14 +1,10 @@
-﻿using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
-using twitch_tv_viewer.Models;
+using twitch_tv_viewer.Classes;
 using twitch_tv_viewer.Repositories;
 using twitch_tv_viewer.ViewModels.Components;
-using twitch_tv_viewer.Views;
 using twitch_tv_viewer.Views.Dialogs;
 
 namespace twitch_tv_viewer.ViewModels

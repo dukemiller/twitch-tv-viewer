@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace twitch_tv_viewer
+﻿namespace twitch_tv_viewer.Classes
 {
-    class ResetMessage
-    {
-    }
+    public class ResetMessage { }
 }

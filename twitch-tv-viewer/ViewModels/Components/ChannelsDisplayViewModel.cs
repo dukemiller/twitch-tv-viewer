@@ -8,10 +8,10 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
+using twitch_tv_viewer.Classes;
 using twitch_tv_viewer.Models;
 using twitch_tv_viewer.Repositories;
 using twitch_tv_viewer.Services;
-using twitch_tv_viewer.Views;
 using Add = twitch_tv_viewer.Views.Dialogs.Add;
 using Delete = twitch_tv_viewer.Views.Dialogs.Delete;
 
