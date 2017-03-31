@@ -22,7 +22,7 @@ namespace twitch_tv_viewer.ViewModels.Dialogs
         public SettingsViewModel(ISettingsRepository settings)
         {
             _settings = settings;
-            Items = new ObservableCollection<string> {"Source", "Low"};
+            Items = new ObservableCollection<string> {"source", "best", "low"};
             Selected = _settings.Quality;
             Checked = _settings.UserAlert;
             ApplyCommand = new RelayCommand(Apply);
