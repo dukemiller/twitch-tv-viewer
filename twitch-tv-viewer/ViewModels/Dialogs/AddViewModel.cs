@@ -23,12 +23,8 @@ namespace twitch_tv_viewer.ViewModels.Dialogs
 
         public string Name
         {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                RaisePropertyChanged();
-            }
+            get => _name;
+            set => Set(() => Name, ref _name, value);
         }
 
         public Action Close { private get; set; }

@@ -42,12 +42,8 @@ namespace twitch_tv_viewer.ViewModels.Dialogs
 
         public string Usernames
         {
-            get { return _usernames; }
-            set
-            {
-                _usernames = value; 
-                RaisePropertyChanged();
-            }
+            get => _usernames;
+            set => Set(() => Usernames, ref _usernames, value);
         }
     }
 }
