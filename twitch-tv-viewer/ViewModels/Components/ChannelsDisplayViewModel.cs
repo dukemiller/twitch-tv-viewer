@@ -59,22 +59,14 @@ namespace twitch_tv_viewer.ViewModels.Components
 
         public ObservableCollection<TwitchChannel> Channels
         {
-            get { return _channels; }
-            set
-            {
-                _channels = value;
-                RaisePropertyChanged();
-            }
+            get => _channels;
+            set => Set(() => Channels, ref _channels, value);
         }
 
         public TwitchChannel SelectedChannel
         {
-            get { return _selectedChannel; }
-            set
-            {
-                _selectedChannel = value;
-                RaisePropertyChanged();
-            }
+            get => _selectedChannel;
+            set => Set(() => SelectedChannel, ref _selectedChannel, value);
         }
 
         public ICommand WindowLoaded { get; set; }

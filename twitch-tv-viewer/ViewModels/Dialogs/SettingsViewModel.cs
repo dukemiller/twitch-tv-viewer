@@ -35,32 +35,20 @@ namespace twitch_tv_viewer.ViewModels.Dialogs
 
         public ObservableCollection<string> Items
         {
-            get { return _items; }
-            set
-            {
-                _items = value;
-                RaisePropertyChanged();
-            }
+            get => _items;
+            set => Set(() => Items, ref _items, value);
         }
 
         public string Selected
         {
-            get { return _selected; }
-            set
-            {
-                _selected = value;
-                RaisePropertyChanged();
-            }
+            get => _selected;
+            set => Set(() => Selected, ref _selected, value);
         }
 
         public bool Checked
         {
-            get { return _checked; }
-            set
-            {
-                _checked = value;
-                RaisePropertyChanged();
-            }
+            get => _checked;
+            set => Set(() => Checked, ref _checked, value);
         }
 
         public ICommand ApplyCommand { get; set; }

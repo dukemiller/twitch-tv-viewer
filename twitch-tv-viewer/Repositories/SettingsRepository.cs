@@ -7,7 +7,7 @@ namespace twitch_tv_viewer.Repositories
     {
         public string Quality
         {
-            get { return Properties.Settings.Default.Quality; }
+            get => Properties.Settings.Default.Quality;
             set
             {
                 Properties.Settings.Default.Quality = value;
@@ -17,7 +17,7 @@ namespace twitch_tv_viewer.Repositories
 
         public bool UserAlert
         {
-            get { return Properties.Settings.Default.UserAlert; }
+            get => Properties.Settings.Default.UserAlert;
             set
             {
                 Properties.Settings.Default.UserAlert = value;
@@ -27,7 +27,7 @@ namespace twitch_tv_viewer.Repositories
 
         public int SortBy
         {
-            get { return Properties.Settings.Default.SortBy; }
+            get => Properties.Settings.Default.SortBy;
             set
             {
                 Properties.Settings.Default.SortBy = value;
