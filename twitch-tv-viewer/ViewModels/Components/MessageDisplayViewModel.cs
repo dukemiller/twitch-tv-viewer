@@ -13,7 +13,7 @@ namespace twitch_tv_viewer.ViewModels.Components
             {
                 _message = value;
                 RaisePropertyChanged();
-                MessengerInstance.Send(new NotificationMessage());
+                MessengerInstance.Send("");
             }
         }
     }

@@ -2,17 +2,15 @@
 using System.Threading.Tasks;
 using twitch_tv_viewer.Models;
 using twitch_tv_viewer.Repositories;
+using twitch_tv_viewer.Services.Interfaces;
 
 namespace twitch_tv_viewer.Services
 {
     public class TwitchChannelService : ITwitchChannelService
     {
-        public TwitchChannelService(ISettingsRepository settings)
-        {
-            Settings = settings;
-        }
+        public TwitchChannelService(ISettingsRepository settings) => _settings = settings;
 
-        private ISettingsRepository Settings { get; }
+        private readonly ISettingsRepository _settings;
 
         public async Task<string> PlayVideo(TwitchChannel channel, string quality)
         {
@@ -35,11 +33,8 @@ namespace twitch_tv_viewer.Services
             return await process.StandardOutput.ReadToEndAsync();
         }
 
-        public async Task<string> PlayVideo(TwitchChannel twitchChannel) => await PlayVideo(twitchChannel, Settings.Quality);
+        public async Task<string> PlayVideo(TwitchChannel channel) => await PlayVideo(channel, _settings.Quality);
 
-        public void OpenChat(TwitchChannel channel)
-        {
-            Process.Start($"http://twitch.tv/{channel.Name}/chat?popout=");
-        }
+        public void OpenChat(TwitchChannel channel) => Process.Start($"http://twitch.tv/{channel.Name}/chat?popout=");
     }
 }

@@ -62,6 +62,9 @@
     </Reference>
     <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
+    <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -82,14 +85,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\Xaml\FocusExtension.cs" />
+    <Compile Include="Enums\ViewAction.cs" />
     <Compile Include="Repositories\Interfaces\ISettingsRepository.cs" />
     <Compile Include="Repositories\SettingsRepository.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="Services\Interfaces\ISoundPlayerService.cs" />
     <Compile Include="Services\SoundPlayerService.cs" />
     <Compile Include="ViewModels\Dialogs\SettingsViewModel.cs" />
-    <Compile Include="Classes\Result.cs" />
-    <Compile Include="Classes\NotificationMessage.cs" />
     <Compile Include="ViewModels\Components\ChannelsDisplayViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\EditViewModel.cs" />
     <Compile Include="ViewModels\Components\MessageDisplayViewModel.cs" />
@@ -134,7 +136,6 @@
     <Compile Include="Repositories\Interfaces\IUsernameRepository.cs" />
     <Compile Include="Repositories\TwitchChannelRepository.cs" />
     <Compile Include="Repositories\UsernameRepository.cs" />
-    <Compile Include="Classes\ResetMessage.cs" />
     <Compile Include="Services\Interfaces\ITwitchChannelService.cs" />
     <Compile Include="Services\TwitchChannelService.cs" />
     <Compile Include="ViewModels\Dialogs\AddViewModel.cs" />

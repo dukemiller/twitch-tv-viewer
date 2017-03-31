@@ -7,10 +7,7 @@ namespace twitch_tv_viewer.Services
     {
         private readonly Assembly _assembly;
 
-        public SoundPlayerService()
-        {
-            _assembly = Assembly.GetExecutingAssembly();
-        }
+        public SoundPlayerService() => _assembly = Assembly.GetExecutingAssembly();
 
         public void PlayOnlineSound()
         {

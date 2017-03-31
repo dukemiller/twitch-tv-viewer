@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
-using twitch_tv_viewer.Classes;
+using twitch_tv_viewer.Enums;
 using twitch_tv_viewer.Repositories;
 using twitch_tv_viewer.ViewModels.Components;
 using twitch_tv_viewer.Views.Dialogs;
@@ -25,15 +26,15 @@ namespace twitch_tv_viewer.ViewModels
 
         public MainWindowViewModel(ISettingsRepository settings)
         {
-            Notification = "Loading ...";
-
             _settings = settings;
             _messageDisplay = SimpleIoc.Default.GetInstance<MessageDisplayViewModel>();
             _channelsDisplay = SimpleIoc.Default.GetInstance<ChannelsDisplayViewModel>();
+
+            Notification = "Loading ...";
             CurrentViewModel = _channelsDisplay;
 
-            MessengerInstance.Register<NotificationMessage>(this, notification => Notification = notification.Message);
-            MessengerInstance.Register<Result>(this, DisplayLogic);
+            MessengerInstance.Register<string>(this, notification => Notification = notification);
+            MessengerInstance.Register<(bool, string)>(this, DisplayLogic);
 
             SettingsCommand = new RelayCommand(OpenSettings);
             AddCommand = new RelayCommand(Add);
@@ -46,32 +47,28 @@ namespace twitch_tv_viewer.ViewModels
 
         public ViewModelBase CurrentViewModel
         {
-            get { return _currentViewModel; }
+            get => _currentViewModel;
             set
             {
-                _currentViewModel = value;
-                RaisePropertyChanged();
+                _currentViewModel?.Cleanup();
+                Set(() => CurrentViewModel, ref _currentViewModel, value);
             }
         }
 
         public string Notification
         {
-            get { return _notification; }
-            set
-            {
-                _notification = value;
-                RaisePropertyChanged();
-            }
+            get => _notification;
+            set => Set(() => Notification, ref _notification, value);
         }
         
-        private void DisplayLogic(Result result)
+        private void DisplayLogic((bool successful, string message) result)
         {
-            if (result.Successful)
+            if (result.successful)
                 CurrentViewModel = _channelsDisplay;
             else
             {
                 CurrentViewModel = _messageDisplay;
-                _messageDisplay.Message = result.Message;
+                _messageDisplay.Message = result.message;
             }
         }
 
@@ -100,7 +97,7 @@ namespace twitch_tv_viewer.ViewModels
             {
                 Notification = "Refreshing ...";
                 await Task.Delay(2000);
-                MessengerInstance.Send(new ResetMessage());
+                MessengerInstance.Send(ViewAction.Reset);
             }
         }
 

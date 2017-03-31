@@ -8,10 +8,11 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
-using twitch_tv_viewer.Classes;
+using twitch_tv_viewer.Enums;
 using twitch_tv_viewer.Models;
 using twitch_tv_viewer.Repositories;
 using twitch_tv_viewer.Services;
+using twitch_tv_viewer.Services.Interfaces;
 using Add = twitch_tv_viewer.Views.Dialogs.Add;
 using Delete = twitch_tv_viewer.Views.Dialogs.Delete;
 
@@ -20,14 +21,18 @@ namespace twitch_tv_viewer.ViewModels.Components
     internal class ChannelsDisplayViewModel : ViewModelBase
     {
         private readonly ISettingsRepository _settings;
+
         private readonly ISoundPlayerService _soundPlayer;
+
         private readonly ITwitchChannelRepository _twitch;
+
         private readonly ITwitchChannelService _twitchService;
+
         private readonly IUsernameRepository _user;
 
-        private ObservableCollection<TwitchChannel> _channels;
-
         private int _lastCount = -1;
+
+        private ObservableCollection<TwitchChannel> _channels;
 
         private TwitchChannel _selectedChannel;
 
@@ -45,12 +50,17 @@ namespace twitch_tv_viewer.ViewModels.Components
             DeleteCommand = new RelayCommand(Delete);
             ClickCommand = new RelayCommand(Click);
             OpenChatCommand = new RelayCommand(OpenChat);
+            OpenStreamCommand = new RelayCommand(OpenStream);
             WindowLoaded = new RelayCommand(OnLoaded);
             CopyCommand = new RelayCommand(Copy);
             AddCommand = new RelayCommand(Add);
 
-            // on any sent message, set the counter to 30 to instantly refresh
-            Messenger.Default.Register<ResetMessage>(this, message => Counter = 30);
+            // on reset, set the counter to 30 to refresh
+            Messenger.Default.Register<ViewAction>(this, message =>
+            {
+                if (message == ViewAction.Reset)
+                    Counter = 30;
+            });
         }
 
         // 
@@ -76,6 +86,8 @@ namespace twitch_tv_viewer.ViewModels.Components
         public ICommand ClickCommand { get; set; }
 
         public ICommand OpenChatCommand { get; set; }
+
+        public ICommand OpenStreamCommand { get; set; }
 
         public ICommand CopyCommand { get; set; }
 
@@ -110,10 +122,7 @@ namespace twitch_tv_viewer.ViewModels.Components
         {
             if (SelectedChannel != null)
             {
-                Messenger.Default.Send(new NotificationMessage
-                {
-                    Message = $"Opening stream for {SelectedChannel.Name} ..."
-                });
+                Messenger.Default.Send($"Opening stream for {SelectedChannel.Name} ...");
 
                 var video = await _twitchService.PlayVideo(SelectedChannel);
                 var information = Regex.Split(video, "\n");
@@ -145,28 +154,31 @@ namespace twitch_tv_viewer.ViewModels.Components
         {
             while (true)
             {
+
                 if (!_user.GetUsernames().Any())
-                    Messenger.Default.Send(new Result {Message = "Add some twitch usernames."});
+                    Messenger.Default.Send((false, "Add some twitch usernames."));
 
                 else
+
                     try
                     {
                         var result = await _twitch.GetChannels();
 
-                        MessengerInstance.Send(new NotificationMessage());
+                        MessengerInstance.Send("");
 
+                        // success
                         if (result.Any())
                         {
                             Channels = new ObservableCollection<TwitchChannel>(result);
                             Sort(_settings.SortName);
-                            MessengerInstance.Send(new Result {Successful = true});
+                            MessengerInstance.Send((true, ""));
                         }
 
+                        // success but no streamers
                         else
-                        {
-                            MessengerInstance.Send(new Result {Message = "No streamers online."});
-                        }
+                            MessengerInstance.Send((false, "No streamers online."));
 
+                        // play sound
                         if (Channels.Count != _lastCount && _lastCount != -1 && _settings.UserAlert)
                             if (_lastCount > Channels.Count)
                                 _soundPlayer.PlayOfflineSound();
@@ -178,7 +190,7 @@ namespace twitch_tv_viewer.ViewModels.Components
 
                     catch
                     {
-                        MessengerInstance.Send(new Result {Message = "Connectivity issue."});
+                        MessengerInstance.Send((false, "Connectivity issue."));
                     }
 
                 Counter = 0;
@@ -190,14 +202,20 @@ namespace twitch_tv_viewer.ViewModels.Components
 
         private void OpenChat()
         {
-            if (SelectedChannel != null)
-            {
-                MessengerInstance.Send(new NotificationMessage
-                {
-                    Message = $"Opening chat for {SelectedChannel.Name} ..."
-                });
-                _twitchService.OpenChat(SelectedChannel);
-            }
+            if (SelectedChannel == null)
+                return;
+
+            MessengerInstance.Send($"Opening chat for {SelectedChannel.Name} ...");
+            _twitchService.OpenChat(SelectedChannel);
+        }
+
+        private void OpenStream()
+        {
+            if (SelectedChannel == null)
+                return;
+
+            MessengerInstance.Send($"Opening channel page for {SelectedChannel.Name} ...");
+            _twitchService.OpenStream(SelectedChannel);
         }
     }
 }

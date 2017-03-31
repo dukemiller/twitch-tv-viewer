@@ -3,7 +3,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
-using twitch_tv_viewer.Classes;
+using twitch_tv_viewer.Enums;
 using twitch_tv_viewer.Models;
 using twitch_tv_viewer.Repositories;
 
@@ -30,6 +30,8 @@ namespace twitch_tv_viewer.ViewModels.Dialogs
 
         public ICommand ConfirmCommand { get; private set; }
 
+        // 
+
         private void Cancel() => Close();
 
         private void Confirm() => Delete();
@@ -37,7 +39,7 @@ namespace twitch_tv_viewer.ViewModels.Dialogs
         private void Delete()
         {
             _usernames.RemoveUsername(Channel.Name);
-            Messenger.Default.Send(new ResetMessage());
+            Messenger.Default.Send(ViewAction.Reset);
             Close();
         }
     }

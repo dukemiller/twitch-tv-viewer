@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
 using twitch_tv_viewer.Models;
 
-namespace twitch_tv_viewer.Services
+namespace twitch_tv_viewer.Services.Interfaces
 {
-    interface ITwitchChannelService
+    public interface ITwitchChannelService
     {
-        Task<string> PlayVideo(TwitchChannel twitchChannel);
-        Task<string> PlayVideo(TwitchChannel twitchChannel, string quality);
+        Task<string> PlayVideo(TwitchChannel channel);
+        Task<string> PlayVideo(TwitchChannel channel, string quality);
         void OpenChat(TwitchChannel twitchChannel);
     }
 }
