@@ -39,7 +39,8 @@ namespace twitch_tv_viewer.ViewModels.Components
         // 
 
         public ChannelsDisplayViewModel(ISettingsRepository settings, ISoundPlayerService sound,
-            ITwitchChannelRepository twitchRepository, ITwitchChannelService twitchSevice, IUsernameRepository usernames)
+            ITwitchChannelRepository twitchRepository, ITwitchChannelService twitchSevice,
+            IUsernameRepository usernames)
         {
             _settings = settings;
             _soundPlayer = sound;
@@ -107,7 +108,8 @@ namespace twitch_tv_viewer.ViewModels.Components
                     new ObservableCollection<TwitchChannel>(
                         Channels.OrderByDescending(c => c.Viewers.All(char.IsNumber) ? int.Parse(c.Viewers) : 0));
             else
-                Channels = new ObservableCollection<TwitchChannel>(Channels.OrderBy(c => propertyDescriptor.GetValue(c)));
+                Channels =
+                    new ObservableCollection<TwitchChannel>(Channels.OrderBy(c => propertyDescriptor.GetValue(c)));
         }
 
         private async void OnLoaded() => await Main();
@@ -154,7 +156,6 @@ namespace twitch_tv_viewer.ViewModels.Components
         {
             while (true)
             {
-
                 if (!_user.GetUsernames().Any())
                     Messenger.Default.Send((false, "Add some twitch usernames."));
 
