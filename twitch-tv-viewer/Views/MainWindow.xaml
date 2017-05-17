@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:twitch_tv_viewer.ViewModels"
         Title="TwitchTV Viewer"
+        ResizeMode="CanResizeWithGrip"
         Width="800"
         Height="200"
         mc:Ignorable="d">

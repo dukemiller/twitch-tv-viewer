@@ -11,7 +11,7 @@
              BorderThickness="0"
              IsReadOnly="True"
              IsHitTestVisible="False"
-             FontSize="48"
+             FontSize="58"
              Style="{StaticResource {x:Type Control}}"
              Text="{Binding Message}" />
 </UserControl>

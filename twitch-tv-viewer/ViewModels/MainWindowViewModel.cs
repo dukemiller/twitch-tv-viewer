@@ -51,7 +51,7 @@ namespace twitch_tv_viewer.ViewModels
             get => _currentViewModel;
             set
             {
-                _currentViewModel?.Cleanup();
+                CurrentViewModel?.Cleanup();
                 Set(() => CurrentViewModel, ref _currentViewModel, value);
             }
         }
