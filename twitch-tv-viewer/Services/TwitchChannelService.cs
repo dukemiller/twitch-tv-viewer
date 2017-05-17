@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using twitch_tv_viewer.Models;
 using twitch_tv_viewer.Repositories;
+using twitch_tv_viewer.Repositories.Interfaces;
 using twitch_tv_viewer.Services.Interfaces;
 
 namespace twitch_tv_viewer.Services

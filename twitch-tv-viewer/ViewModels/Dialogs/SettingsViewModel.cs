@@ -4,6 +4,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using twitch_tv_viewer.Repositories;
+using twitch_tv_viewer.Repositories.Interfaces;
 
 namespace twitch_tv_viewer.ViewModels.Dialogs
 {

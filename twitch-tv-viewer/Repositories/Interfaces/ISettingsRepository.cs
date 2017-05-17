@@ -1,4 +1,4 @@
-﻿namespace twitch_tv_viewer.Repositories
+﻿namespace twitch_tv_viewer.Repositories.Interfaces
 {
     public interface ISettingsRepository
     {

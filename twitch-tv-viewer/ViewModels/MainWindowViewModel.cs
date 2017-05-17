@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using twitch_tv_viewer.Enums;
 using twitch_tv_viewer.Repositories;
+using twitch_tv_viewer.Repositories.Interfaces;
 using twitch_tv_viewer.ViewModels.Components;
 using twitch_tv_viewer.Views.Dialogs;
 

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using twitch_tv_viewer.Repositories;
+using twitch_tv_viewer.Repositories.Interfaces;
 using twitch_tv_viewer.Services;
 using twitch_tv_viewer.Services.Interfaces;
 using twitch_tv_viewer.ViewModels;

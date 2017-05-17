@@ -25,10 +25,11 @@
         <KeyBinding Key="R" Command="{Binding RefreshCommand}" />
         <KeyBinding Key="S" Command="{Binding SettingsCommand}" />
     </Window.InputBindings>
-    <DockPanel>
+    <DockPanel >
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
             <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
-                <Label Content="{Binding Notification, NotifyOnTargetUpdated=True}" Style="{StaticResource Notification}" />
+                <Label Content="{Binding Notification, NotifyOnTargetUpdated=True}"
+                       Style="{StaticResource Notification}" />
             </StackPanel>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                 <Label>Sort by:</Label>

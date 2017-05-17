@@ -1,10 +1,13 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Specialized;
+using System.ComponentModel;
 using twitch_tv_viewer.Models;
+using twitch_tv_viewer.Repositories.Interfaces;
 
 namespace twitch_tv_viewer.Repositories
 {
     internal class SettingsRepository: ISettingsRepository
     {
+
         public string Quality
         {
             get => Properties.Settings.Default.Quality;

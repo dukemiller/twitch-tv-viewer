@@ -11,6 +11,7 @@ using GalaSoft.MvvmLight.Messaging;
 using twitch_tv_viewer.Enums;
 using twitch_tv_viewer.Models;
 using twitch_tv_viewer.Repositories;
+using twitch_tv_viewer.Repositories.Interfaces;
 using twitch_tv_viewer.Services;
 using twitch_tv_viewer.Services.Interfaces;
 using Add = twitch_tv_viewer.Views.Dialogs.Add;
