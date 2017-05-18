@@ -1,7 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-using twitch_tv_viewer.ViewModels;
 using twitch_tv_viewer.ViewModels.Dialogs;
 
 namespace twitch_tv_viewer.Views.Dialogs
@@ -9,11 +8,10 @@ namespace twitch_tv_viewer.Views.Dialogs
     /// <summary>
     ///     Interaction logic for Add.xaml
     /// </summary>
-    public partial class Add : Window
+    public partial class Add
     {
         public Add()
         {
-            DataContext = new AddViewModel {Close = Close};
             InitializeComponent();
         }
 
@@ -31,6 +29,11 @@ namespace twitch_tv_viewer.Views.Dialogs
             if (e.Key == Key.Space)
                 e.Handled = true;
             base.OnPreviewKeyDown(e);
+        }
+
+        private void Add_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            ((AddViewModel) DataContext).Close = Close;
         }
     }
 }

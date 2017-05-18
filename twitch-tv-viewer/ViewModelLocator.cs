@@ -23,9 +23,7 @@ namespace twitch_tv_viewer
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             // Repositories
-            SimpleIoc.Default.Register<ISettingsRepository, SettingsRepository>();
-            SimpleIoc.Default.Register<ITwitchChannelRepository, TwitchChannelRepository>();
-            SimpleIoc.Default.Register<IUsernameRepository, UsernameRepository>();
+            SimpleIoc.Default.Register<ISettingsRepository>(JsonSettingsRepository.Load);
 
             // Services
             SimpleIoc.Default.Register<ISoundPlayerService, SoundPlayerService>();
@@ -44,5 +42,17 @@ namespace twitch_tv_viewer
         }
 
         public MainWindowViewModel Main => ServiceLocator.Current.GetInstance<MainWindowViewModel>();
+
+        public ChannelsDisplayViewModel Channels => ServiceLocator.Current.GetInstance<ChannelsDisplayViewModel>();
+
+        public MessageDisplayViewModel Message => ServiceLocator.Current.GetInstance<MessageDisplayViewModel>();
+
+        public AddViewModel DialogAdd => ServiceLocator.Current.GetInstance<AddViewModel>();
+
+        public DeleteViewModel DialogDelete => ServiceLocator.Current.GetInstance<DeleteViewModel>();
+
+        public EditViewModel DialogEdit => ServiceLocator.Current.GetInstance<EditViewModel>();
+
+        public SettingsViewModel DialogSettings => ServiceLocator.Current.GetInstance<SettingsViewModel>();
     }
 }

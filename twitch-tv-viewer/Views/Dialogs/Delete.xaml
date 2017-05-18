@@ -6,10 +6,14 @@
         xmlns:viewModels="clr-namespace:twitch_tv_viewer.ViewModels"
         xmlns:dialogs="clr-namespace:twitch_tv_viewer.ViewModels.Dialogs"
         Title="Delete"
+        Loaded="Delete_OnLoaded"
         d:DataContext="{d:DesignInstance dialogs:DeleteViewModel}"
         Style="{StaticResource PopupWindow}"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
+    <Window.DataContext>
+        <Binding Path="DialogDelete" Source="{StaticResource Locator}" />
+    </Window.DataContext>
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CancelCommand}" />
         <KeyBinding Key="Enter" Command="{Binding ConfirmCommand}" />

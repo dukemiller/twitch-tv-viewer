@@ -1,5 +1,6 @@
 ﻿using System.Media;
 using System.Reflection;
+using twitch_tv_viewer.Services.Interfaces;
 
 namespace twitch_tv_viewer.Services
 {

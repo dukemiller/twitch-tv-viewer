@@ -6,12 +6,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DataContext="{d:DesignInstance components:MessageDisplayViewModel}"
              mc:Ignorable="d">
+    <UserControl.DataContext>
+        <Binding Path="Message" Source="{StaticResource Locator}" />
+    </UserControl.DataContext>
     <TextBox HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch"
              BorderThickness="0"
              IsReadOnly="True"
              IsHitTestVisible="False"
-             FontSize="58"
+             FontSize="48"
              Style="{StaticResource {x:Type Control}}"
              Text="{Binding Message}" />
 </UserControl>

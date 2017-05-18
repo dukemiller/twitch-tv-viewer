@@ -2,7 +2,6 @@
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-using twitch_tv_viewer.ViewModels;
 using twitch_tv_viewer.ViewModels.Dialogs;
 
 namespace twitch_tv_viewer.Views.Dialogs
@@ -10,13 +9,10 @@ namespace twitch_tv_viewer.Views.Dialogs
     /// <summary>
     ///     Interaction logic for Edit.xaml
     /// </summary>
-    public partial class Edit : Window
+    public partial class Edit
     {
-        private readonly EditViewModel _editViewModel;
         public Edit()
         {
-            _editViewModel = new EditViewModel { Close = Close };
-            DataContext = _editViewModel;
             InitializeComponent();
         }
 
@@ -31,7 +27,7 @@ namespace twitch_tv_viewer.Views.Dialogs
         
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            var str = _editViewModel.Usernames;
+            var str = ((EditViewModel)DataContext).Usernames;
 
             if (str.Length == 0 && (e.Key == Key.OemComma || e.Key == Key.Space))
                 e.Handled = true;
@@ -47,6 +43,11 @@ namespace twitch_tv_viewer.Views.Dialogs
             }
 
             base.OnPreviewKeyDown(e);
+        }
+
+        private void Edit_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            ((EditViewModel)DataContext).Close = Close;
         }
     }
 }

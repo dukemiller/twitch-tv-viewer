@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -10,26 +11,20 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using twitch_tv_viewer.Enums;
 using twitch_tv_viewer.Models;
-using twitch_tv_viewer.Repositories;
 using twitch_tv_viewer.Repositories.Interfaces;
-using twitch_tv_viewer.Services;
 using twitch_tv_viewer.Services.Interfaces;
 using Add = twitch_tv_viewer.Views.Dialogs.Add;
 using Delete = twitch_tv_viewer.Views.Dialogs.Delete;
 
 namespace twitch_tv_viewer.ViewModels.Components
 {
-    internal class ChannelsDisplayViewModel : ViewModelBase
+    public class ChannelsDisplayViewModel : ViewModelBase
     {
         private readonly ISettingsRepository _settings;
 
         private readonly ISoundPlayerService _soundPlayer;
 
-        private readonly ITwitchChannelRepository _twitch;
-
         private readonly ITwitchChannelService _twitchService;
-
-        private readonly IUsernameRepository _user;
 
         private int _lastCount = -1;
 
@@ -39,15 +34,12 @@ namespace twitch_tv_viewer.ViewModels.Components
 
         // 
 
-        public ChannelsDisplayViewModel(ISettingsRepository settings, ISoundPlayerService sound,
-            ITwitchChannelRepository twitchRepository, ITwitchChannelService twitchSevice,
-            IUsernameRepository usernames)
+        public ChannelsDisplayViewModel(ISettingsRepository settings, ISoundPlayerService sound, ITwitchChannelService twitchSevice)
         {
             _settings = settings;
             _soundPlayer = sound;
-            _twitch = twitchRepository;
             _twitchService = twitchSevice;
-            _user = usernames;
+            _channels = new ObservableCollection<TwitchChannel>();
 
             DeleteCommand = new RelayCommand(Delete);
             ClickCommand = new RelayCommand(Click);
@@ -111,14 +103,18 @@ namespace twitch_tv_viewer.ViewModels.Components
             else
                 Channels =
                     new ObservableCollection<TwitchChannel>(Channels.OrderBy(c => propertyDescriptor.GetValue(c)));
+
+            // 
         }
 
         private async void OnLoaded() => await Main();
 
         private void Delete()
         {
-            if (SelectedChannel != null)
-                new Delete(SelectedChannel).ShowDialog();
+            if (SelectedChannel == null)
+                return;
+
+            new Delete {Channel = SelectedChannel}.ShowDialog();
         }
 
         private async void Click()

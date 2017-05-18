@@ -2,22 +2,21 @@
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using twitch_tv_viewer.Enums;
-using twitch_tv_viewer.Repositories;
+using twitch_tv_viewer.Repositories.Interfaces;
 
 namespace twitch_tv_viewer.ViewModels.Dialogs
 {
-    internal sealed class AddViewModel : ViewModelBase
+    public sealed class AddViewModel : ViewModelBase
     {
-        private readonly IUsernameRepository _users;
+        private readonly ISettingsRepository _settingsRepository;
 
         private string _name;
 
-        public AddViewModel()
+        public AddViewModel(ISettingsRepository settingsRepository)
         {
-            _users = SimpleIoc.Default.GetInstance<IUsernameRepository>();
+            _settingsRepository = settingsRepository;
             _name = "";
             CancelCommand = new RelayCommand(Cancel);
             ConfirmCommand = new RelayCommand(Confirm);
@@ -47,9 +46,11 @@ namespace twitch_tv_viewer.ViewModels.Dialogs
 
         private void Add()
         {
-            if (Name.Length > 0)
+            var name = Name.ToLower().Trim();
+            if (name.Length > 0 && !_settingsRepository.Usernames.Contains(name))
             {
-                _users.AddUsername(Name);
+                _settingsRepository.Usernames.Add(name);
+                _settingsRepository.Save();
                 Messenger.Default.Send(ViewAction.Reset);
             }
             Close();

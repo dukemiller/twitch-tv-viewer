@@ -1,10 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using twitch_tv_viewer.Enums;
-using twitch_tv_viewer.Repositories;
 using twitch_tv_viewer.Repositories.Interfaces;
 using twitch_tv_viewer.ViewModels.Components;
 using twitch_tv_viewer.Views.Dialogs;
@@ -13,6 +13,10 @@ namespace twitch_tv_viewer.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        public static string ApplicationPath =
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "twitch_tv_viewer");
+
         private readonly MessageDisplayViewModel _messageDisplay;
 
         private readonly ChannelsDisplayViewModel _channelsDisplay;
@@ -25,11 +29,13 @@ namespace twitch_tv_viewer.ViewModels
 
         // 
 
-        public MainWindowViewModel(ISettingsRepository settings)
+        public MainWindowViewModel(ISettingsRepository settings,
+            MessageDisplayViewModel messageDisplay,
+            ChannelsDisplayViewModel channelDisplay)
         {
             _settings = settings;
-            _messageDisplay = SimpleIoc.Default.GetInstance<MessageDisplayViewModel>();
-            _channelsDisplay = SimpleIoc.Default.GetInstance<ChannelsDisplayViewModel>();
+            _messageDisplay = messageDisplay;
+            _channelsDisplay = channelDisplay;
 
             Notification = "Loading ...";
             CurrentViewModel = _channelsDisplay;
@@ -61,7 +67,7 @@ namespace twitch_tv_viewer.ViewModels
             get => _notification;
             set => Set(() => Notification, ref _notification, value);
         }
-        
+
         private void DisplayLogic((bool successful, string message) result)
         {
             if (result.successful)
@@ -93,13 +99,10 @@ namespace twitch_tv_viewer.ViewModels
 
         private async void Refresh()
         {
-            // find a way to not allow multiple presses before refresh
-            if (_channelsDisplay.Counter > 4)
-            {
-                Notification = "Refreshing ...";
-                await Task.Delay(2000);
-                MessengerInstance.Send(ViewAction.Reset);
-            }
+            Notification = "";
+            Notification = "Refreshing ...";
+            await Task.Delay(500);
+            MessengerInstance.Send(ViewAction.Reset);
         }
 
         private void Sort()

@@ -1,6 +1,6 @@
-﻿namespace twitch_tv_viewer.Services
+﻿namespace twitch_tv_viewer.Services.Interfaces
 {
-    internal interface ISoundPlayerService
+    public interface ISoundPlayerService
     {
         void PlayOnlineSound();
         void PlayOfflineSound();

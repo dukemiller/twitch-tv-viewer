@@ -6,10 +6,14 @@
         xmlns:viewModels="clr-namespace:twitch_tv_viewer.ViewModels"
         xmlns:dialogs="clr-namespace:twitch_tv_viewer.ViewModels.Dialogs"
         Title="Settings"
+        Loaded="Settings_OnLoaded"
         d:DataContext="{d:DesignInstance {x:Type dialogs:SettingsViewModel}}"
         Style="{StaticResource PopupWindow}"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
+    <Window.DataContext>
+        <Binding Path="DialogSettings" Source="{StaticResource Locator}" />
+    </Window.DataContext>
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

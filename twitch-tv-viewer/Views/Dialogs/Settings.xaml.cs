@@ -13,9 +13,11 @@ namespace twitch_tv_viewer.Views.Dialogs
         public Settings()
         {
             InitializeComponent();
-            var viewmodel = SimpleIoc.Default.GetInstance<SettingsViewModel>();
-            viewmodel.Close = Close;
-            DataContext = viewmodel;
+        }
+
+        private void Settings_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            ((SettingsViewModel)DataContext).Close = Close;
         }
     }
 }

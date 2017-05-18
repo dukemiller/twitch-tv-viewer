@@ -87,7 +87,7 @@
     <Compile Include="Classes\Xaml\FocusExtension.cs" />
     <Compile Include="Enums\ViewAction.cs" />
     <Compile Include="Repositories\Interfaces\ISettingsRepository.cs" />
-    <Compile Include="Repositories\SettingsRepository.cs" />
+    <Compile Include="Repositories\JsonSettingsRepository.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="Services\Interfaces\ISoundPlayerService.cs" />
     <Compile Include="Services\SoundPlayerService.cs" />
@@ -132,10 +132,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Repositories\Interfaces\ITwitchChannelRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IUsernameRepository.cs" />
-    <Compile Include="Repositories\TwitchChannelRepository.cs" />
-    <Compile Include="Repositories\UsernameRepository.cs" />
     <Compile Include="Services\Interfaces\ITwitchChannelService.cs" />
     <Compile Include="Services\TwitchChannelService.cs" />
     <Compile Include="ViewModels\Dialogs\AddViewModel.cs" />

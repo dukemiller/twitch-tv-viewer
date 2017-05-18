@@ -2,7 +2,7 @@
 
 namespace twitch_tv_viewer.ViewModels.Components
 {
-    internal class MessageDisplayViewModel : ViewModelBase
+    public class MessageDisplayViewModel : ViewModelBase
     {
         private string _message;
 

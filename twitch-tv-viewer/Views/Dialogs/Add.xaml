@@ -7,10 +7,14 @@
         xmlns:viewModels="clr-namespace:twitch_tv_viewer.ViewModels"
         xmlns:dialogs="clr-namespace:twitch_tv_viewer.ViewModels.Dialogs"
         Title="Add"
+        Loaded="Add_OnLoaded"
         d:DataContext="{d:DesignInstance dialogs:AddViewModel}"
         Style="{StaticResource PopupWindow}"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
+    <Window.DataContext>
+        <Binding Path="DialogAdd" Source="{StaticResource Locator}" />
+    </Window.DataContext>
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CancelCommand}" />
         <KeyBinding Key="Enter" Command="{Binding ConfirmCommand}" />

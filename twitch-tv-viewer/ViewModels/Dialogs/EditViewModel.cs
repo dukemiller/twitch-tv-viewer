@@ -1,28 +1,32 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using GalaSoft.MvvmLight.Ioc;
 using twitch_tv_viewer.Enums;
-using twitch_tv_viewer.Repositories;
+using twitch_tv_viewer.Repositories.Interfaces;
 
 namespace twitch_tv_viewer.ViewModels.Dialogs
 {
-    internal class EditViewModel : ViewModelBase
+    public class EditViewModel : ViewModelBase
     {
-        private readonly IUsernameRepository _user;
+        private readonly ISettingsRepository _settingsRepository;
 
         private string _usernames;
 
-        public EditViewModel()
+        // 
+
+        public EditViewModel(ISettingsRepository settingsRepository)
         {
-            _user = SimpleIoc.Default.GetInstance<IUsernameRepository>();
-            Usernames = string.Join(", ", _user.GetUsernames());
+            _settingsRepository = settingsRepository;
+            Usernames = string.Join(", ", _settingsRepository.Usernames);
             ConfirmCommand = new RelayCommand(Confirm);
             CancelCommand = new RelayCommand(Cancel);
         }
+
+        // 
 
         public ICommand ConfirmCommand { get; set; }
 
@@ -34,8 +38,14 @@ namespace twitch_tv_viewer.ViewModels.Dialogs
         {
             var usernames = Regex
                 .Split(Regex.Replace(Usernames.TrimEnd(','), @"\s+", @""), ",")
-                .Where(s => s.Length > 0);
-            _user.SetUsernames(usernames);
+                .Where(s => s.Length > 0)
+                .Select(username => username.ToLower().Trim());
+            var collection = new ObservableCollection<string>();
+            foreach(var username in usernames)
+                if (!collection.Contains(username))
+                    collection.Add(username);
+            _settingsRepository.Usernames = collection;
+            _settingsRepository.Save();
             MessengerInstance.Send(ViewAction.Reset);
             Close();
         }

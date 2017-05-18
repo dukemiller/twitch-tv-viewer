@@ -9,10 +9,14 @@
         Title="Edit"
         Width="400"
         Height="250"
+        Loaded="Edit_OnLoaded"
         d:DataContext="{d:DesignInstance dialogs:EditViewModel}"
         Style="{StaticResource PopupWindow}"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
+    <Window.DataContext>
+        <Binding Path="DialogEdit" Source="{StaticResource Locator}" />
+    </Window.DataContext>
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CancelCommand}" />
         <KeyBinding Key="Enter" Command="{Binding ConfirmCommand}" />

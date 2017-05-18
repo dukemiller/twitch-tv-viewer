@@ -13,11 +13,11 @@
         <twitchTvViewer:ViewModelLocator x:Key="Locator" />
 
         <DataTemplate DataType="{x:Type componentsVm:ChannelsDisplayViewModel}">
-            <components:ChannelsDisplay DataContext="{Binding}" />
+            <components:ChannelsDisplay />
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type componentsVm:MessageDisplayViewModel}">
-            <components:MessageDisplay DataContext="{Binding}" />
+            <components:MessageDisplay />
         </DataTemplate>
 
         <!--  Storyboards  -->
@@ -141,7 +141,7 @@
         <!--  Datagrid Styles  -->
 
         <Style BasedOn="{StaticResource {x:Type Control}}" TargetType="ContextMenu" />
-
+        
         <Style TargetType="DataGrid">
             <Setter Property="AutoGenerateColumns" Value="False" />
             <Setter Property="Background" Value="{StaticResource Background}" />

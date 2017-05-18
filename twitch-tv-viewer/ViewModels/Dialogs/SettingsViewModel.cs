@@ -3,12 +3,13 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using twitch_tv_viewer.Repositories;
+using GalaSoft.MvvmLight.Messaging;
+using twitch_tv_viewer.Enums;
 using twitch_tv_viewer.Repositories.Interfaces;
 
 namespace twitch_tv_viewer.ViewModels.Dialogs
 {
-    internal class SettingsViewModel : ViewModelBase
+    public class SettingsViewModel : ViewModelBase
     {
         private ObservableCollection<string> _items;
 
@@ -23,7 +24,7 @@ namespace twitch_tv_viewer.ViewModels.Dialogs
         public SettingsViewModel(ISettingsRepository settings)
         {
             _settings = settings;
-            Items = new ObservableCollection<string> {"source", "best", "low"};
+            Items = new ObservableCollection<string> {"source,best,1080p", "720p,720p30", "480p,low"};
             Selected = _settings.Quality;
             Checked = _settings.UserAlert;
             ApplyCommand = new RelayCommand(Apply);
@@ -64,6 +65,7 @@ namespace twitch_tv_viewer.ViewModels.Dialogs
         {
             _settings.UserAlert = Checked;
             _settings.Quality = Selected;
+            _settings.Save();
             Close();
         }
     }
