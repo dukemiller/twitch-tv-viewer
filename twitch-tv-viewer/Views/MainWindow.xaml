@@ -6,6 +6,7 @@
         xmlns:viewModels="clr-namespace:twitch_tv_viewer.ViewModels"
         Title="TwitchTV Viewer"
         ResizeMode="CanResizeWithGrip"
+        SizeChanged="MainWindow_OnSizeChanged"
         Width="800"
         Height="200"
         mc:Ignorable="d">

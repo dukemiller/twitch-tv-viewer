@@ -13,6 +13,10 @@ namespace twitch_tv_viewer.Repositories.Interfaces
 
         string SortName { get; }
 
+        int Width { get; set; }
+
+        int Height { get; set; }
+
         ObservableCollection<string> Usernames { get; set; }
 
         Task Save();

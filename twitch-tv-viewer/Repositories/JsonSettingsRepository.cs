@@ -26,6 +26,12 @@ namespace twitch_tv_viewer.Repositories
         [JsonProperty("usernames")]
         public ObservableCollection<string> Usernames { get; set; } = new ObservableCollection<string>();
 
+        [JsonProperty("window_width")]
+        public int Width { get; set; } = 800;
+
+        [JsonProperty("window_height")]
+        public int Height { get; set; } = 200;
+
         [JsonIgnore]
         private static readonly string SavePath = Path.Combine(MainWindowViewModel.ApplicationPath, "settings.json");
 

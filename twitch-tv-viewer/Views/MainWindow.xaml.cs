@@ -4,6 +4,8 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
+using Microsoft.Practices.ServiceLocation;
+using twitch_tv_viewer.Repositories.Interfaces;
 
 namespace twitch_tv_viewer.Views
 {
@@ -21,6 +23,9 @@ namespace twitch_tv_viewer.Views
             else
             {
                 InitializeComponent();
+                var settings = ServiceLocator.Current.GetInstance<ISettingsRepository>();
+                Width = settings.Width;
+                Height = settings.Height;
             }
         }
 
@@ -44,6 +49,18 @@ namespace twitch_tv_viewer.Views
             ShowWindow(hwnd, restore);
             SetForegroundWindow(hwnd);
             Close();
+        }
+
+        private void MainWindow_OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var settings = ServiceLocator.Current.GetInstance<ISettingsRepository>();
+            if (WindowState != WindowState.Maximized)
+            {
+                (var width, var height) = (e.NewSize.Width, e.NewSize.Height);
+                settings.Width = Convert.ToInt16(width);
+                settings.Height = Convert.ToInt16(height);
+                settings.Save();
+            }
         }
     }
 }
