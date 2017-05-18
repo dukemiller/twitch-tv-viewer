@@ -47,6 +47,7 @@ namespace twitch_tv_viewer.ViewModels.Dialogs
             _settingsRepository.Usernames.Remove(Channel.Name.ToLower().Trim());
             _settingsRepository.Save();
             Messenger.Default.Send(ViewAction.Reset);
+            Messenger.Default.Send((MessageType.Notification, "Deleted channel."));
             Close();
         }
     }

@@ -63,6 +63,8 @@ namespace twitch_tv_viewer.ViewModels.Dialogs
 
         private void Apply()
         {
+            if (_settings.UserAlert != Checked || !_settings.Quality.Equals(Selected))
+                Messenger.Default.Send((MessageType.Notification, "Changed settings."));
             _settings.UserAlert = Checked;
             _settings.Quality = Selected;
             _settings.Save();

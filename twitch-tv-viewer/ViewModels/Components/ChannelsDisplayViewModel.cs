@@ -32,6 +32,10 @@ namespace twitch_tv_viewer.ViewModels.Components
 
         private TwitchChannel _selectedChannel;
 
+        public static int CounterMax = 30000;
+
+        public static int CounterInterval = 100;
+
         // 
 
         public ChannelsDisplayViewModel(ISettingsRepository settings, ISoundPlayerService sound, ITwitchChannelService twitchSevice)
@@ -53,7 +57,7 @@ namespace twitch_tv_viewer.ViewModels.Components
             Messenger.Default.Register<ViewAction>(this, message =>
             {
                 if (message == ViewAction.Reset)
-                    Counter = 30;
+                    Counter = CounterMax;
             });
         }
 
@@ -119,32 +123,33 @@ namespace twitch_tv_viewer.ViewModels.Components
 
         private async void Click()
         {
-            if (SelectedChannel != null)
+            if (SelectedChannel == null)
+                return;
+
+            Messenger.Default.Send((MessageType.Notification, $"Opening stream for {SelectedChannel.Name} ..."));
+
+            var video = await _twitchService.PlayVideo(SelectedChannel);
+            var information = Regex.Split(video, "\n");
+
+            // Handle unique butterfly streams that don't have a "source" quality
+            if (information.Any(line => line.Contains("Available streams: "))
+                && information.Any(line => line.StartsWith("error: ")))
             {
-                Messenger.Default.Send($"Opening stream for {SelectedChannel.Name} ...");
-
-                var video = await _twitchService.PlayVideo(SelectedChannel);
-                var information = Regex.Split(video, "\n");
-
-                // Handle unique butterfly streams that don't have a "source" quality
-                if (information.Any(line => line.Contains("Available streams: "))
-                    && information.Any(line => line.StartsWith("error: ")))
-                {
-                    var streams = information.First(line => line.Contains("Available streams: "));
-                    var resolutionLine = Regex.Split(streams, ": ")[1];
-                    var resolutions = Regex.Split(resolutionLine, ", ").TakeWhile(s => s.Any(char.IsNumber));
-                    await _twitchService.PlayVideo(SelectedChannel, resolutions.Last());
-                }
+                var streams = information.First(line => line.Contains("Available streams: "));
+                var resolutionLine = Regex.Split(streams, ": ")[1];
+                var resolutions = Regex.Split(resolutionLine, ", ").TakeWhile(s => s.Any(char.IsNumber));
+                await _twitchService.PlayVideo(SelectedChannel, resolutions.Last());
             }
         }
 
         private void Copy()
         {
-            if (SelectedChannel != null)
-            {
-                Clipboard.Clear();
-                Clipboard.SetText(SelectedChannel.Name);
-            }
+            if (SelectedChannel == null)
+                return;
+
+            Clipboard.Clear();
+            Clipboard.SetText(SelectedChannel.Name);
+            MessengerInstance.Send((MessageType.Notification, "Copied channel to clipboard."));
         }
 
         private static void Add() => new Add().ShowDialog();
@@ -153,23 +158,41 @@ namespace twitch_tv_viewer.ViewModels.Components
         {
             while (true)
             {
-                if (!_user.GetUsernames().Any())
+                if (!_settings.Usernames.Any())
                     Messenger.Default.Send((false, "Add some twitch usernames."));
 
                 else
-
                     try
                     {
-                        var result = await _twitch.GetChannels();
-
-                        MessengerInstance.Send("");
+                        var result = await _twitchService.GetChannels();
 
                         // success
                         if (result.Any())
                         {
-                            Channels = new ObservableCollection<TwitchChannel>(result);
-                            Sort(_settings.SortName);
-                            MessengerInstance.Send((true, ""));
+                            var newChannels = result.Where(r2 => !Channels.Any(ch => ch.Name.Equals(r2.Name))).ToList();
+                            var goneChannels = Channels.Where(c2 => !result.Any(c1 => c1.Name.Equals(c2.Name))).ToList();
+                            var updatedChannels = result.Where(r2 => Channels.Any(ch => ch.Name.Equals(r2.Name)));
+
+                            foreach (var channel in goneChannels)
+                                Channels.Remove(channel);
+
+                            foreach(var channel in newChannels)
+                                Channels.Add(channel);
+
+                            foreach (var channel in updatedChannels)
+                            {
+                                var already = Channels.First(ch => ch.Name.Equals(channel.Name));
+                                already.Viewers = channel.Viewers;
+                                already.Game = channel.Game;
+                                already.Status = channel.Status;
+                            }
+
+                            if (newChannels.Any() || goneChannels.Any())
+                            {
+                                Sort(_settings.SortName);
+                                MessengerInstance.Send((true, ""));
+                                MessengerInstance.Send((MessageType.Notification, $"{Channels.Count} streams available."));
+                            }
                         }
 
                         // success but no streamers
@@ -186,15 +209,17 @@ namespace twitch_tv_viewer.ViewModels.Components
                         _lastCount = Channels.Count;
                     }
 
-                    catch
+                    catch (Exception e)
                     {
-                        MessengerInstance.Send((false, "Connectivity issue."));
+                        MessengerInstance.Send((false, $"Connectivity issue.\n{e}"));
                     }
 
                 Counter = 0;
-
-                while (Counter++ < 30)
-                    await Task.Delay(1000);
+                while (Counter < CounterMax)
+                {
+                    Counter += CounterInterval;
+                    await Task.Delay(CounterInterval);
+                }
             }
         }
 
@@ -203,7 +228,7 @@ namespace twitch_tv_viewer.ViewModels.Components
             if (SelectedChannel == null)
                 return;
 
-            MessengerInstance.Send($"Opening chat for {SelectedChannel.Name} ...");
+            MessengerInstance.Send((MessageType.Notification, $"Opening chat for {SelectedChannel.Name} ..."));
             _twitchService.OpenChat(SelectedChannel);
         }
 
@@ -212,7 +237,7 @@ namespace twitch_tv_viewer.ViewModels.Components
             if (SelectedChannel == null)
                 return;
 
-            MessengerInstance.Send($"Opening channel page for {SelectedChannel.Name} ...");
+            MessengerInstance.Send((MessageType.Notification, $"Opening channel page for {SelectedChannel.Name} ..."));
             _twitchService.OpenStream(SelectedChannel);
         }
     }

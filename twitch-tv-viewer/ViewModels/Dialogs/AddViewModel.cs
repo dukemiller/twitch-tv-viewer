@@ -52,6 +52,7 @@ namespace twitch_tv_viewer.ViewModels.Dialogs
                 _settingsRepository.Usernames.Add(name);
                 _settingsRepository.Save();
                 Messenger.Default.Send(ViewAction.Reset);
+                Messenger.Default.Send((MessageType.Notification, "Added channel."));
             }
             Close();
         }

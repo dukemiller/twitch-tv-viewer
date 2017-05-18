@@ -40,14 +40,28 @@ namespace twitch_tv_viewer.ViewModels
             Notification = "Loading ...";
             CurrentViewModel = _channelsDisplay;
 
-            MessengerInstance.Register<string>(this, notification => Notification = notification);
             MessengerInstance.Register<(bool, string)>(this, DisplayLogic);
+            MessengerInstance.Register<(MessageType Type, string Message)>(this, ChangeNotification);
 
             SettingsCommand = new RelayCommand(OpenSettings);
             AddCommand = new RelayCommand(Add);
             EditCommand = new RelayCommand(Edit);
             RefreshCommand = new RelayCommand(Refresh);
             SortCommand = new RelayCommand(Sort);
+        }
+
+        /// <summary>
+        ///     A more explicit way to change the notification.
+        /// </summary>
+        private void ChangeNotification((MessageType Type, string Content) message)
+        {
+            // A quirk with the notification auto fade-out, it'll only fade if the message
+            // is different in .Equals() to the previous
+            if (message.Type == MessageType.Notification)
+            {
+                Notification = "";
+                Notification = message.Content;
+            }
         }
 
         // 
@@ -108,8 +122,10 @@ namespace twitch_tv_viewer.ViewModels
         private void Sort()
         {
             _settings.SortBy = (_settings.SortBy + 1) % 4;
-            RaisePropertyChanged(nameof(_settings.SortName));
             _channelsDisplay.Sort(_settings.SortName);
+            _settings.Save();
+            RaisePropertyChanged(nameof(_settings.SortName));
+            Messenger.Default.Send((MessageType.Notification, $"Changed sort to {_settings.SortName}."));
         }
 
         private static void Add() => new Add().ShowDialog();
