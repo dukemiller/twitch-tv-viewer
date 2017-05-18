@@ -1,15 +1,22 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using GalaSoft.MvvmLight;
 using Newtonsoft.Json.Linq;
 
 namespace twitch_tv_viewer.Models
 {
-    public class TwitchChannel
+    public class TwitchChannel: ObservableObject
     {
+        private string _name;
+
+        private string _viewers;
+
+        private string _status;
+
+        private string _game;
+
+        // 
+
         public TwitchChannel()
-        {
-        }
+        {}
 
         public TwitchChannel(JToken data)
         {
@@ -20,13 +27,30 @@ namespace twitch_tv_viewer.Models
             Viewers = data["viewers"]?.ToString() ?? "???";
         }
 
-        public string Name { get; set; }
+        // 
 
-        public string Game { get; set; }
+        public string Name
+        {
+            get => _name;
+            set => Set(() => Name, ref _name, value);
+        }
 
-        public string Status { get; set; }
+        public string Game
+        {
+            get => _game;
+            set => Set(() => Game, ref _game, value);
+        }
 
-        public string Viewers { get; set; }
-        
+        public string Status
+        {
+            get => _status;
+            set => Set(() => Status, ref _status, value);
+        }
+
+        public string Viewers
+        {
+            get => _viewers;
+            set => Set(() => Viewers, ref _viewers, value);
+        }
     }
 }
