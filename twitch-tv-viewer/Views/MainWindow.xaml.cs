@@ -10,13 +10,13 @@ namespace twitch_tv_viewer.Views
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
             if (AlreadyOpen)
             {
-                FocusOtherDownloaderAndClose();
+                FocusOtherViewerAndClose();
             }
             else
             {
@@ -37,7 +37,7 @@ namespace twitch_tv_viewer.Views
         [DllImport("user32.dll")]
         private static extern IntPtr FindWindow(string sClassName, string sAppName);
 
-        private void FocusOtherDownloaderAndClose()
+        private void FocusOtherViewerAndClose()
         {
             const int restore = 9;
             var hwnd = FindWindow(null, "TwitchTV Viewer");
