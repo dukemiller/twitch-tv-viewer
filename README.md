@@ -6,13 +6,13 @@ A semi light-weight, retro-looking display to track if twitch streamers are onli
 \- Double click their username to  start their stream in streamlink interfaced through whatever your default media player is (usually VLC)  
 \- Right click them to get options (currently, only open their twitch chat in your browser)  
   
-Shortcuts: A (Add), D (Prompt delete selected), E (Edit), Enter (accept menu / start selected stream), Escape (close popup window), R (refresh window)  
+Shortcuts: **A** (Add), **D** (Prompt delete selected), **E** (Edit), **Enter** (accept menu / start selected stream), **Escape** (close popup window), **R** (refresh window)  
 
 ---  
 
 ### Build & Run
-**Requirements:**  [nuget.exe](https://dist.nuget.org/win-x86-commandline/latest/nuget.exe) on PATH, Visual Studio 2015 and/or C# 6.0 Roslyn Compiler  
-**Optional:** Devenv (Visual Studio 2015) on PATH  
+**Requirements:**  [nuget.exe](https://dist.nuget.org/win-x86-commandline/latest/nuget.exe) on PATH, Visual Studio 2017 and/or C# 6.0 Roslyn Compiler  
+**Optional:** Devenv (Visual Studio 2017) on PATH  
 ```
 git clone https://github.com/dukemiller/twitch-tv-viewer.git
 cd twitch-tv-viewer
