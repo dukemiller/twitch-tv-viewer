@@ -5,6 +5,7 @@
              xmlns:componentsVm="clr-namespace:twitch_tv_viewer.ViewModels.Components"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:twitchTvViewer="clr-namespace:twitch_tv_viewer"
+             xmlns:models="clr-namespace:twitch_tv_viewer.Models"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
 
@@ -172,21 +173,62 @@
             <Setter Property="FontFamily" Value="{StaticResource Font}" />
             <Setter Property="FontSize" Value="{StaticResource FontSize}" />
             <Setter Property="ToolTip" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}}" />
-
+            <Setter Property="ToolTipService.InitialShowDelay" Value="500"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="#080E0E" />
                 </Trigger>
-                <MultiDataTrigger>
-                    <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
-                        <Condition Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}, Mode=OneWay}" Value="Name" />
-                    </MultiDataTrigger.Conditions>
-                    <Setter Property="Background" Value="#101C1C" />
-                </MultiDataTrigger>
+
                 <Trigger Property="IsSelected" Value="True">
                     <Setter Property="Background" Value="#142323" />
                 </Trigger>
+
+                <!--Background-->
+
+                <DataTrigger Binding="{Binding Promoted}" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#243A15" Offset="0"/>
+                                    <GradientStop Color="#18270E" Offset="0.5"/>
+                                    <GradientStop Color="#243A15" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
+                        <Condition Binding="{Binding Promoted}" Value="False" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="#101C1C" />
+                </MultiDataTrigger>
+
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
+                        <Condition Binding="{Binding Promoted}" Value="True" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#35541F" Offset="0"/>
+                                    <GradientStop Color="#213613" Offset="0.5"/>
+                                    <GradientStop Color="#35541F" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger>
+
+
+
+
+
             </Style.Triggers>
         </Style>
 

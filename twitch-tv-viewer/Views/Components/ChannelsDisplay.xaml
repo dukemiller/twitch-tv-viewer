@@ -5,10 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:twitch_tv_viewer.Models"
              d:DataContext="{d:DesignInstance components:ChannelsDisplayViewModel}"
              mc:Ignorable="d">
     <UserControl.Resources>
-        <Style x:Key="MenuItemStyle1" TargetType="{x:Type MenuItem}">
+        <Style x:Key="MenuItemStyle" TargetType="{x:Type MenuItem}">
             <Style.BasedOn>
                 <Style TargetType="{x:Type MenuItem}">
                     <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -213,17 +214,18 @@
     <DataGrid Height="auto"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch"
+              SelectionMode="Extended"
+              FocusVisualStyle="{x:Null}"
               ItemsSource="{Binding Channels}"
-              SelectedItem="{Binding SelectedChannel,
-                                     Mode=TwoWay}">
+              SelectedItem="{Binding SelectedChannel}">
         <DataGrid.ContextMenu>
             <ContextMenu >
                 <MenuItem Command="{Binding OpenStreamCommand}" Header="Open twitch page"
-                          Style="{DynamicResource MenuItemStyle1}" />
+                          Style="{DynamicResource MenuItemStyle}" />
                 <MenuItem Command="{Binding OpenChatCommand}" Header="Open chat"
                           Style="{DynamicResource MenuItemStyle}" />
-                <MenuItem Command="{Binding PromoteCommand}" Header="Promote / Demote" Style="{DynamicResource MenuItemStyle1}" />
-                <MenuItem Command="{Binding DeleteCommand}" Header="Delete" Style="{DynamicResource MenuItemStyle1}" />
+                <MenuItem Command="{Binding PromoteCommand}" Header="Promote / Demote" Style="{DynamicResource MenuItemStyle}" />
+                <MenuItem Command="{Binding DeleteCommand}" Header="Delete" Style="{DynamicResource MenuItemStyle}" />
             </ContextMenu>
         </DataGrid.ContextMenu>
         <DataGrid.InputBindings>
