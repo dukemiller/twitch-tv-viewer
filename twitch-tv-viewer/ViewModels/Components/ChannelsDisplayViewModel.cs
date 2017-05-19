@@ -171,6 +171,9 @@ namespace twitch_tv_viewer.ViewModels.Components
 
         private void Promote()
         {
+            if (SelectedChannel == null)
+                return;
+
             if (_settings.Important.Contains(SelectedChannel.Name.ToLower()))
             {
                 _settings.Important.Remove(SelectedChannel.Name.ToLower());
@@ -183,6 +186,7 @@ namespace twitch_tv_viewer.ViewModels.Components
                 Channels.First(ch => ch.Name.Equals(SelectedChannel.Name)).Promoted = true;
                 Messenger.Default.Send((MessageType.Notification, $"Promoted {SelectedChannel.Name}."));
             }
+
             _settings.Save();
         }
 
