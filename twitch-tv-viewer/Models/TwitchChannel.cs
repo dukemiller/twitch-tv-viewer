@@ -13,6 +13,8 @@ namespace twitch_tv_viewer.Models
 
         private string _game;
 
+        private bool _promoted;
+
         // 
 
         public TwitchChannel()
@@ -51,6 +53,12 @@ namespace twitch_tv_viewer.Models
         {
             get => _viewers;
             set => Set(() => Viewers, ref _viewers, value);
+        }
+
+        public bool Promoted
+        {
+            get => _promoted;
+            set => Set(() => Promoted, ref _promoted, value);
         }
     }
 }

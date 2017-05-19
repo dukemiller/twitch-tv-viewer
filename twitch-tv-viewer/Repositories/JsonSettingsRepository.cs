@@ -23,6 +23,9 @@ namespace twitch_tv_viewer.Repositories
         [JsonProperty("sort_property")]
         public string SortName => TypeDescriptor.GetProperties(typeof(TwitchChannel))[SortBy].Name;
 
+        [JsonProperty("important")]
+        public ObservableCollection<string> Important { get; set; } = new ObservableCollection<string>();
+
         [JsonProperty("usernames")]
         public ObservableCollection<string> Usernames { get; set; } = new ObservableCollection<string>();
 
@@ -52,6 +55,5 @@ namespace twitch_tv_viewer.Repositories
 
             return new JsonSettingsRepository();
         }
-       
     }
 }

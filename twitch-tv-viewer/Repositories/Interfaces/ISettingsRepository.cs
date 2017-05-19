@@ -19,6 +19,8 @@ namespace twitch_tv_viewer.Repositories.Interfaces
 
         ObservableCollection<string> Usernames { get; set; }
 
+        ObservableCollection<string> Important { get; set; }
+
         Task Save();
     }
 }

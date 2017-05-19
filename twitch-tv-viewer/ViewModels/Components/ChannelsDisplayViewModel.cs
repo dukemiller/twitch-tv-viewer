@@ -52,6 +52,7 @@ namespace twitch_tv_viewer.ViewModels.Components
             WindowLoaded = new RelayCommand(OnLoaded);
             CopyCommand = new RelayCommand(Copy);
             AddCommand = new RelayCommand(Add);
+            PromoteCommand = new RelayCommand(Promote);
 
             // on reset, set the counter to 30 to refresh
             Messenger.Default.Register<ViewAction>(this, message =>
@@ -91,7 +92,99 @@ namespace twitch_tv_viewer.ViewModels.Components
 
         public ICommand AddCommand { get; set; }
 
+        public ICommand PromoteCommand { get; set; }
+
         //
+
+
+        private async Task Main()
+        {
+            while (true)
+            {
+                if (!_settings.Usernames.Any())
+                    Messenger.Default.Send((false, "Add some twitch usernames."));
+
+                else
+                    try
+                    {
+                        var result = await _twitchService.GetChannels();
+
+                        // success
+                        if (result.Any())
+                        {
+                            foreach (var channel in result)
+                                channel.Promoted = _settings.Important.Contains(channel.Name.ToLower());
+
+                            var newChannels = result.Where(r2 => !Channels.Any(ch => ch.Name.Equals(r2.Name))).ToList();
+                            var goneChannels = Channels.Where(c2 => !result.Any(c1 => c1.Name.Equals(c2.Name))).ToList();
+                            var updatedChannels = result.Where(r2 => Channels.Any(ch => ch.Name.Equals(r2.Name)));
+
+                            foreach (var channel in goneChannels)
+                                Channels.Remove(channel);
+
+                            foreach (var channel in newChannels)
+                                Channels.Add(channel);
+
+                            foreach (var channel in updatedChannels)
+                            {
+                                var already = Channels.First(ch => ch.Name.Equals(channel.Name));
+                                already.Viewers = channel.Viewers;
+                                already.Game = channel.Game;
+                                already.Status = channel.Status;
+                            }
+
+                            if (newChannels.Any() || goneChannels.Any())
+                            {
+                                Sort(_settings.SortName);
+                                MessengerInstance.Send((true, ""));
+                                MessengerInstance.Send((MessageType.Notification, $"{Channels.Count} streams available."));
+                            }
+                        }
+
+                        // success but no streamers
+                        else
+                            MessengerInstance.Send((false, "No streamers online."));
+
+                        // play sound
+                        if (Channels.Count != _lastCount && _lastCount != -1 && _settings.UserAlert)
+                            if (_lastCount > Channels.Count)
+                                _soundPlayer.PlayOfflineSound();
+                            else if (_lastCount < Channels.Count)
+                                _soundPlayer.PlayOnlineSound();
+
+                        _lastCount = Channels.Count;
+                    }
+
+                    catch (Exception e)
+                    {
+                        MessengerInstance.Send((false, $"Connectivity issue.\n{e}"));
+                    }
+
+                Counter = 0;
+                while (Counter < CounterMax)
+                {
+                    Counter += CounterInterval;
+                    await Task.Delay(CounterInterval);
+                }
+            }
+        }
+
+        private void Promote()
+        {
+            if (_settings.Important.Contains(SelectedChannel.Name.ToLower()))
+            {
+                _settings.Important.Remove(SelectedChannel.Name.ToLower());
+                Channels.First(ch => ch.Name.Equals(SelectedChannel.Name)).Promoted = false;
+                Messenger.Default.Send((MessageType.Notification, $"Demoted {SelectedChannel.Name}."));
+            }
+            else
+            {
+                _settings.Important.Add(SelectedChannel.Name.ToLower());
+                Channels.First(ch => ch.Name.Equals(SelectedChannel.Name)).Promoted = true;
+                Messenger.Default.Send((MessageType.Notification, $"Promoted {SelectedChannel.Name}."));
+            }
+            _settings.Save();
+        }
 
         public void Sort(string propertyName)
         {
@@ -153,75 +246,6 @@ namespace twitch_tv_viewer.ViewModels.Components
         }
 
         private static void Add() => new Add().ShowDialog();
-
-        private async Task Main()
-        {
-            while (true)
-            {
-                if (!_settings.Usernames.Any())
-                    Messenger.Default.Send((false, "Add some twitch usernames."));
-
-                else
-                    try
-                    {
-                        var result = await _twitchService.GetChannels();
-
-                        // success
-                        if (result.Any())
-                        {
-                            var newChannels = result.Where(r2 => !Channels.Any(ch => ch.Name.Equals(r2.Name))).ToList();
-                            var goneChannels = Channels.Where(c2 => !result.Any(c1 => c1.Name.Equals(c2.Name))).ToList();
-                            var updatedChannels = result.Where(r2 => Channels.Any(ch => ch.Name.Equals(r2.Name)));
-
-                            foreach (var channel in goneChannels)
-                                Channels.Remove(channel);
-
-                            foreach(var channel in newChannels)
-                                Channels.Add(channel);
-
-                            foreach (var channel in updatedChannels)
-                            {
-                                var already = Channels.First(ch => ch.Name.Equals(channel.Name));
-                                already.Viewers = channel.Viewers;
-                                already.Game = channel.Game;
-                                already.Status = channel.Status;
-                            }
-
-                            if (newChannels.Any() || goneChannels.Any())
-                            {
-                                Sort(_settings.SortName);
-                                MessengerInstance.Send((true, ""));
-                                MessengerInstance.Send((MessageType.Notification, $"{Channels.Count} streams available."));
-                            }
-                        }
-
-                        // success but no streamers
-                        else
-                            MessengerInstance.Send((false, "No streamers online."));
-
-                        // play sound
-                        if (Channels.Count != _lastCount && _lastCount != -1 && _settings.UserAlert)
-                            if (_lastCount > Channels.Count)
-                                _soundPlayer.PlayOfflineSound();
-                            else if (_lastCount < Channels.Count)
-                                _soundPlayer.PlayOnlineSound();
-
-                        _lastCount = Channels.Count;
-                    }
-
-                    catch (Exception e)
-                    {
-                        MessengerInstance.Send((false, $"Connectivity issue.\n{e}"));
-                    }
-
-                Counter = 0;
-                while (Counter < CounterMax)
-                {
-                    Counter += CounterInterval;
-                    await Task.Delay(CounterInterval);
-                }
-            }
-        }
 
         private void OpenChat()
         {

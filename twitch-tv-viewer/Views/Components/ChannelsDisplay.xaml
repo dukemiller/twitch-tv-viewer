@@ -221,7 +221,8 @@
                 <MenuItem Command="{Binding OpenStreamCommand}" Header="Open twitch page"
                           Style="{DynamicResource MenuItemStyle1}" />
                 <MenuItem Command="{Binding OpenChatCommand}" Header="Open chat"
-                          Style="{DynamicResource MenuItemStyle1}" />
+                          Style="{DynamicResource MenuItemStyle}" />
+                <MenuItem Command="{Binding PromoteCommand}" Header="Promote / Demote" Style="{DynamicResource MenuItemStyle1}" />
                 <MenuItem Command="{Binding DeleteCommand}" Header="Delete" Style="{DynamicResource MenuItemStyle1}" />
             </ContextMenu>
         </DataGrid.ContextMenu>
