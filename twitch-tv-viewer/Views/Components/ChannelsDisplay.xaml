@@ -215,6 +215,7 @@
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch"
               SelectionMode="Extended"
+              MouseUp="UIElement_OnMouseUp"
               FocusVisualStyle="{x:Null}"
               ItemsSource="{Binding Channels}"
               SelectedItem="{Binding SelectedChannel}">
