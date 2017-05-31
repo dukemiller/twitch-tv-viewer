@@ -32,13 +32,14 @@ namespace twitch_tv_viewer.ViewModels.Components
 
         private TwitchChannel _selectedChannel;
 
-        public static int CounterMax = 30000;
+        public static int CounterMax = 3_000;
 
         public static int CounterInterval = 100;
 
         // 
 
-        public ChannelsDisplayViewModel(ISettingsRepository settings, ISoundPlayerService sound, ITwitchChannelService twitchSevice)
+        public ChannelsDisplayViewModel(ISettingsRepository settings, ISoundPlayerService sound,
+            ITwitchChannelService twitchSevice)
         {
             _settings = settings;
             _soundPlayer = sound;
@@ -54,12 +55,31 @@ namespace twitch_tv_viewer.ViewModels.Components
             AddCommand = new RelayCommand(Add);
             PromoteCommand = new RelayCommand(Promote);
 
-            // on reset, set the counter to 30 to refresh
-            Messenger.Default.Register<ViewAction>(this, message =>
+            Messenger.Default.Register<ValueTuple<ViewAction, string>>(this, data =>
             {
-                if (message == ViewAction.Reset)
-                    Counter = CounterMax;
+                var view = data.Item1;
+                var channel = data.Item2.ToLower();
+
+                switch (view)
+                {
+                    case ViewAction.Add:
+                        Channels.Add(new TwitchChannel{Name = channel, Status = "Loading ..."});
+                        Counter = CounterMax;
+                        break;
+                    case ViewAction.Delete:
+                        Channels.Remove(Channels.FirstOrDefault(ch => ch.Name.ToLower().Equals(channel)));
+                        Counter = CounterMax;
+                        break;
+                    case ViewAction.None:
+                        break;
+                    case ViewAction.Reset:
+                        Counter = CounterMax;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             });
+
         }
 
         // 
@@ -101,6 +121,8 @@ namespace twitch_tv_viewer.ViewModels.Components
         {
             while (true)
             {
+                Counter = 0;
+
                 if (!_settings.Usernames.Any())
                     Messenger.Default.Send((false, "Add some twitch usernames."));
 
@@ -176,7 +198,6 @@ namespace twitch_tv_viewer.ViewModels.Components
                     }
                 }
 
-                Counter = 0;
                 while (Counter < CounterMax)
                 {
                     Counter += CounterInterval;

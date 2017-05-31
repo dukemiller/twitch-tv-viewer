@@ -3,6 +3,8 @@
     public enum ViewAction
     {
         None,
+        Add,
+        Delete,
         Reset
     }
 }
