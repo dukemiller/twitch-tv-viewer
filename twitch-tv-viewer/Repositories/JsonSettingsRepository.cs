@@ -26,6 +26,9 @@ namespace twitch_tv_viewer.Repositories
         [JsonProperty("important")]
         public ObservableCollection<string> Important { get; set; } = new ObservableCollection<string>();
 
+        [JsonProperty("play_promoted_sound")]
+        public bool PlayPromotedSound { get; set; } = false;
+
         [JsonProperty("usernames")]
         public ObservableCollection<string> Usernames { get; set; } = new ObservableCollection<string>();
 

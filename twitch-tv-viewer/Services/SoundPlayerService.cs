@@ -23,5 +23,12 @@ namespace twitch_tv_viewer.Services
                 using (var player = new SoundPlayer(offline))
                     player.Play();
         }
+
+        public void PlayAnnouncement()
+        {
+            using (var announcement = _assembly.GetManifestResourceStream("twitch_tv_viewer.Resources.Sfx.announcement2.wav"))
+                using (var player = new SoundPlayer(announcement))
+                    player.Play();
+        }
     }
 }

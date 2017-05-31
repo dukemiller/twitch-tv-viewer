@@ -17,6 +17,8 @@ namespace twitch_tv_viewer.Repositories.Interfaces
 
         int Height { get; set; }
 
+        bool PlayPromotedSound { get; set; }
+
         ObservableCollection<string> Usernames { get; set; }
 
         ObservableCollection<string> Important { get; set; }

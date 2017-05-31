@@ -4,5 +4,6 @@
     {
         void PlayOnlineSound();
         void PlayOfflineSound();
+        void PlayAnnouncement();
     }
 }

@@ -105,9 +105,11 @@ namespace twitch_tv_viewer.ViewModels.Components
                     Messenger.Default.Send((false, "Add some twitch usernames."));
 
                 else
+                {
                     try
                     {
                         var result = await _twitchService.GetChannels();
+                        var anyPromoted = false;
 
                         // success
                         if (result.Any())
@@ -116,7 +118,8 @@ namespace twitch_tv_viewer.ViewModels.Components
                                 channel.Promoted = _settings.Important.Contains(channel.Name.ToLower());
 
                             var newChannels = result.Where(r2 => !Channels.Any(ch => ch.Name.Equals(r2.Name))).ToList();
-                            var goneChannels = Channels.Where(c2 => !result.Any(c1 => c1.Name.Equals(c2.Name))).ToList();
+                            var goneChannels = Channels.Where(c2 => !result.Any(c1 => c1.Name.Equals(c2.Name)))
+                                .ToList();
                             var updatedChannels = result.Where(r2 => Channels.Any(ch => ch.Name.Equals(r2.Name)));
 
                             foreach (var channel in goneChannels)
@@ -135,10 +138,16 @@ namespace twitch_tv_viewer.ViewModels.Components
 
                             if (newChannels.Any() || goneChannels.Any())
                             {
-                                Sort(_settings.SortName);
                                 MessengerInstance.Send((true, ""));
-                                MessengerInstance.Send((MessageType.Notification, $"{Channels.Count} streams available."));
+                                MessengerInstance.Send(
+                                    (MessageType.Notification, $"{Channels.Count} streams available."));
                             }
+
+                            anyPromoted = newChannels.Select(ch => ch.Name.ToLower())
+                                .Intersect(_settings.Important)
+                                .Any();
+
+                            Sort(_settings.SortName);
                         }
 
                         // success but no streamers
@@ -146,11 +155,17 @@ namespace twitch_tv_viewer.ViewModels.Components
                             MessengerInstance.Send((false, "No streamers online."));
 
                         // play sound
-                        if (Channels.Count != _lastCount && _lastCount != -1 && _settings.UserAlert)
+                        if (Channels.Count != _lastCount && _lastCount != -1 &&
+                            (_settings.UserAlert || _settings.PlayPromotedSound))
                             if (_lastCount > Channels.Count)
                                 _soundPlayer.PlayOfflineSound();
                             else if (_lastCount < Channels.Count)
-                                _soundPlayer.PlayOnlineSound();
+                            {
+                                if (anyPromoted && _settings.PlayPromotedSound)
+                                    _soundPlayer.PlayAnnouncement();
+                                else
+                                    _soundPlayer.PlayOnlineSound();
+                            }
 
                         _lastCount = Channels.Count;
                     }
@@ -159,6 +174,7 @@ namespace twitch_tv_viewer.ViewModels.Components
                     {
                         MessengerInstance.Send((false, $"Connectivity issue.\n{e}"));
                     }
+                }
 
                 Counter = 0;
                 while (Counter < CounterMax)

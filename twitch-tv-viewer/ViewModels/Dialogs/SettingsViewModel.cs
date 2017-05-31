@@ -19,6 +19,8 @@ namespace twitch_tv_viewer.ViewModels.Dialogs
 
         private bool _checked;
 
+        private bool _promotedSound;
+
         // 
 
         public SettingsViewModel(ISettingsRepository settings)
@@ -27,6 +29,7 @@ namespace twitch_tv_viewer.ViewModels.Dialogs
             Items = new ObservableCollection<string> {"source,best,1080p", "720p,720p30", "480p,low"};
             Selected = _settings.Quality;
             Checked = _settings.UserAlert;
+            PromotedSound = _settings.PlayPromotedSound;
             ApplyCommand = new RelayCommand(Apply);
             CancelCommand = new RelayCommand(Cancel);
         }
@@ -53,6 +56,12 @@ namespace twitch_tv_viewer.ViewModels.Dialogs
             set => Set(() => Checked, ref _checked, value);
         }
 
+        public bool PromotedSound
+        {
+            get => _promotedSound;
+            set => Set(() => PromotedSound, ref _promotedSound, value);
+        }
+
         public ICommand ApplyCommand { get; set; }
 
         public ICommand CancelCommand { get; set; }
@@ -63,10 +72,11 @@ namespace twitch_tv_viewer.ViewModels.Dialogs
 
         private void Apply()
         {
-            if (_settings.UserAlert != Checked || !_settings.Quality.Equals(Selected))
+            if (_settings.UserAlert != Checked || !_settings.Quality.Equals(Selected) || _settings.PlayPromotedSound != PromotedSound)
                 Messenger.Default.Send((MessageType.Notification, "Changed settings."));
             _settings.UserAlert = Checked;
             _settings.Quality = Selected;
+            _settings.PlayPromotedSound = PromotedSound;
             _settings.Save();
             Close();
         }

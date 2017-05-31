@@ -199,6 +199,9 @@
   <ItemGroup>
     <Resource Include="Resources\Icons\icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Sfx\announcement2.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetPath) $(SolutionDir)</PostBuildEvent>

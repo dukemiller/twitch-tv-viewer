@@ -9,6 +9,7 @@
         Loaded="Settings_OnLoaded"
         d:DataContext="{d:DesignInstance {x:Type dialogs:SettingsViewModel}}"
         Style="{StaticResource PopupWindow}"
+        Height="165"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
     <Window.DataContext>
@@ -53,6 +54,13 @@
                     <Label Margin="5">User notice sound:</Label>
                     <CheckBox VerticalAlignment="Center"
                               IsChecked="{Binding Checked}"
+                              BorderBrush="{StaticResource Border}"/>
+                    
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                    <Label Margin="5">Play promoted sound:</Label>
+                    <CheckBox VerticalAlignment="Center"
+                              IsChecked="{Binding PromotedSound}"
                               BorderBrush="{StaticResource Border}"/>
                 </StackPanel>
             </StackPanel>
